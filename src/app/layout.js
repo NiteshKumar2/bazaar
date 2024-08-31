@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import NextAuthProvider from "@/provider/NextAuthProvider";
 import { Toaster } from "react-hot-toast";
+import Layout from "@/components/Layout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,7 +18,9 @@ export default function RootLayout({ children }) {
         <NextAuthProvider>
           {/* Optional: You can add a loading state here if necessary */}
           <Toaster />
+          <Layout>
           {children}
+          </Layout>
         </NextAuthProvider>
       </body>
     </html>

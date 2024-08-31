@@ -2,7 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import NextAuthProvider from "@/provider/NextAuthProvider";
 import { Toaster } from "react-hot-toast";
-import Layout from "@/components/Layout";
+import Layout from "@/components/navbar_components/Layout";
 
 const inter = Inter({ subsets: ["latin"] });
 

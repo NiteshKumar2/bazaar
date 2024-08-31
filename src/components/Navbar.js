@@ -241,10 +241,14 @@ export default function Navbar() {
                   {session ? (
                     <MenuItem onClick={() => signOut()}>Log out</MenuItem>
                   ) : (
-                    <>
-                      <MenuItem onClick={handleOpenLoginPopup}>Log in</MenuItem>
-                      <MenuItem onClick={handleOpenSignupPopup}>Sign up</MenuItem>
-                    </>
+                    [
+                      <MenuItem key="login" onClick={handleOpenLoginPopup}>
+                        Log in
+                      </MenuItem>,
+                      <MenuItem key="signup" onClick={handleOpenSignupPopup}>
+                        Sign up
+                      </MenuItem>
+                    ]
                   )}
                 </Menu>
               </div>

@@ -9,6 +9,7 @@ import {
   TextField,
   Button,
   Typography,
+  Divider,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
@@ -91,6 +92,7 @@ const SignupPopup = ({ open, onClose, handleOpenLoginFromSignup }) => {
           >
             {loading ? "Creating Account..." : "Create Account"}
           </Button>
+          <Divider>or</Divider>
           <Button
             color="primary"
             variant="contained"

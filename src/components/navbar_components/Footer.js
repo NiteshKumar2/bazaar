@@ -8,17 +8,13 @@ import {
   Stack,
   TextField,
   Typography,
-  Grid,
 } from "@mui/material";
 
 import FacebookIcon from "@mui/icons-material/Facebook";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TwitterIcon from "@mui/icons-material/Twitter";
+import Image from "next/image";
 
-const logoStyle = {
-  width: "140px",
-  height: "auto",
-};
 
 function Copyright() {
   return (
@@ -44,65 +40,57 @@ export default function Footer() {
         textAlign: { sm: "center", md: "left" },
       }}
     >
-      <Grid container spacing={4}>
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 4,
-              minWidth: "100%",
-            }}
-          >
-            <Box sx={{ width: "100%" }}>
-              <Box sx={{ ml: "-15px" }}>
-                <img
-                  src="bazarnear.png"
-                  style={logoStyle}
-                  alt="BazarNear Logo"
-                />
-              </Box>
-              <Typography variant="body2" fontWeight={600} gutterBottom>
-                Newsletter
-              </Typography>
-              <Typography variant="body2" color="text.secondary" mb={2}>
-                Subscribe to our newsletter for weekly updates and promotions.
-              </Typography>
-              <Stack direction="row" spacing={1} useFlexGap>
-                <TextField
-                  id="newsletter-email"
-                  size="small"
-                  variant="outlined"
-                  fullWidth
-                  placeholder="Your email address"
-                  inputProps={{
-                    autoComplete: "off",
-                    "aria-label": "Enter your email address",
-                  }}
-                />
-                <Button
-                  variant="contained"
-                  color="primary"
-                  sx={{ flexShrink: 0 }}
-                >
-                  Subscribe
-                </Button>
-              </Stack>
-            </Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: { xs: "column", sm: "row" },
+          justifyContent: "space-between",
+          width: "100%",
+          gap: { xs: 4, sm: 2 },
+        }}
+      >
+        <Box sx={{ flex: 1, minWidth: 0 }}>
+          <Box sx={{ ml: "-15px" }}>
+            <Image
+              src="/logo.png"
+              alt="BazarNear Logo"
+              width={50}
+              height={50}
+            />
           </Box>
-        </Grid>
-
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 1,
-            }}
-          >
-            <Typography variant="body2" fontWeight={600}>
-              Product
-            </Typography>
+          <Typography variant="body2" fontWeight={600} gutterBottom>
+            Newsletter
+          </Typography>
+          <Typography variant="body2" color="text.secondary" mb={2}>
+            Subscribe to our newsletter for weekly updates and promotions.
+          </Typography>
+          <Stack direction="row" spacing={1} useFlexGap>
+            <TextField
+              id="newsletter-email"
+              size="small"
+              variant="outlined"
+              fullWidth
+              placeholder="Your email address"
+              inputProps={{
+                autoComplete: "off",
+                "aria-label": "Enter your email address",
+              }}
+            />
+            <Button
+              variant="contained"
+              color="primary"
+              sx={{ flexShrink: 0 }}
+            >
+              Subscribe
+            </Button>
+          </Stack>
+        </Box>
+        <Box sx={{display:{ xs: "flex", sm: 'contents', md: 'contents' } }}>
+        <Box sx={{ flex: 1, minWidth: 0 }}>
+          <Typography variant="body2" fontWeight={600} mb={1}>
+            Product
+          </Typography>
+          <Stack spacing={0.5}>
             <Link color="text.secondary" href="#">
               Features
             </Link>
@@ -118,20 +106,14 @@ export default function Footer() {
             <Link color="text.secondary" href="#">
               FAQs
             </Link>
-          </Box>
-        </Grid>
+          </Stack>
+        </Box>
 
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 1,
-            }}
-          >
-            <Typography variant="body2" fontWeight={600}>
-              Company
-            </Typography>
+        <Box sx={{ flex: 1, minWidth: 0 }}>
+          <Typography variant="body2" fontWeight={600} mb={1}>
+            Company
+          </Typography>
+          <Stack spacing={0.5}>
             <Link color="text.secondary" href="#">
               About us
             </Link>
@@ -141,20 +123,14 @@ export default function Footer() {
             <Link color="text.secondary" href="#">
               Press
             </Link>
-          </Box>
-        </Grid>
+          </Stack>
+        </Box>
 
-        <Grid item xs={12} sm={6} md={4} lg={3}>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 1,
-            }}
-          >
-            <Typography variant="body2" fontWeight={600}>
-              Legal
-            </Typography>
+        <Box sx={{ flex: 1, minWidth: 0 }}>
+          <Typography variant="body2" fontWeight={600} mb={1}>
+            Legal
+          </Typography>
+          <Stack spacing={0.5}>
             <Link color="text.secondary" href="#">
               Terms
             </Link>
@@ -164,10 +140,10 @@ export default function Footer() {
             <Link color="text.secondary" href="#">
               Contact
             </Link>
-          </Box>
-        </Grid>
-      </Grid>
-
+          </Stack>
+        </Box>
+      </Box>
+      </Box>
       <Box
         sx={{
           display: "flex",

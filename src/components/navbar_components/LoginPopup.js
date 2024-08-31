@@ -9,6 +9,7 @@ import {
   TextField,
   Button,
   Typography,
+  Divider,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { signIn } from "next-auth/react";
@@ -102,6 +103,7 @@ const LoginPopup = ({ open, onClose, handleOpenSignupPopup }) => {
           >
             {loading ? "Logging in..." : "Log In"}
           </Button>
+          <Divider>or</Divider>
           <Button
             color="primary"
             variant="contained"

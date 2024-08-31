@@ -18,6 +18,7 @@ import {
   IconButton,
   Menu,
   MenuItem,
+  Typography,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
@@ -74,11 +75,11 @@ export default function Navbar() {
   };
 
   const top100Location = [
-    { label: "New York", places: 100 },
-    { label: "Los Angeles", places: 80 },
-    { label: "Chicago", places: 60 },
-    { label: "Houston", places: 50 },
-    { label: "Phoenix", places: 40 },
+    { city: "jind", state: "haryana" },
+    { city: "rohtak", state: "haryana" },
+    { city: "panipat", state: "haryana" },
+    { city: "sonipat", state: "haryana" },
+    { city: "karnal", state: "haryana" },
   ];
 
   return (
@@ -130,7 +131,7 @@ export default function Navbar() {
                 disablePortal
                 options={top100Location}
                 getOptionLabel={(option) =>
-                  `${option.label} (${option.places} places)`
+                  `${option.city} (${option.state})`
                 }
                 sx={{ width: { xs: "40%", sm: "40%", md: "40%" } }}
                 renderInput={(params) => (
@@ -175,8 +176,9 @@ export default function Navbar() {
               }}
             >
               <Stack direction="row" spacing={2}>
-                {session ? (
-                  <Button
+                {session ? (<>
+                  <Link href={"/addproduct"}>  <Typography style={{marginTop:9}}>  Add Shop/Product </Typography></Link>
+                <Button
                     variant="outlined"
                     color="primary"
                     onClick={() => signOut()}
@@ -184,6 +186,7 @@ export default function Navbar() {
                   >
                     Log out
                   </Button>
+                  </>
                 ) : (
                   <>
                     <Button
@@ -238,8 +241,9 @@ export default function Navbar() {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  {session ? (
-                    <MenuItem onClick={() => signOut()}>Log out</MenuItem>
+                  {session ? ([
+                    <Link key='shop' href={"/addproduct"}>  <Typography style={{marginTop:9, textAlign:'center'}}>Product </Typography></Link>,
+                    <MenuItem key='logout' onClick={() => signOut()}>Log out</MenuItem>]
                   ) : (
                     [
                       <MenuItem key="login" onClick={handleOpenLoginPopup}>

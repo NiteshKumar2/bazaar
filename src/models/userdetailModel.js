@@ -56,6 +56,11 @@ const userdetailSchema = new mongoose.Schema({
         type: String,
         trim: true,  // Trim whitespace from the comment
     },
+    ptype: {
+        type: [String],  // Array of strings to allow multiple selections
+        enum: ["male", "female", "child"],  // Options for type
+        required: [true, "Please select at least one type"],
+    },
 });
 
 // Create an index on the email field for better performance

@@ -18,6 +18,7 @@ export default function CreateUserDetails() {
         image: "",
         rating: "",
         comment:"",
+        ptype:""
     });
     const [loading, setLoading] = useState(false);
 
@@ -134,6 +135,15 @@ export default function CreateUserDetails() {
                         type="text"
                         name="comment"
                         value={userDetail.comment}
+                        onChange={handleChange}
+                        className="p-2 border border-gray-300 rounded-lg mb-4"
+                    />
+                    
+                    <label htmlFor="ptype">Type:</label>
+                    <input
+                        type="text"
+                        name="ptype"
+                        value={userDetail.ptype}
                         onChange={handleChange}
                         className="p-2 border border-gray-300 rounded-lg mb-4"
                     />

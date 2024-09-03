@@ -19,7 +19,8 @@ export default function UpdateUserDetails() {
         phone: "",
         image: "",
         rating: "",
-        comment: ""
+        comment: "",
+        ptype:""
     });
     
     const [loading, setLoading] = useState(false);
@@ -78,7 +79,7 @@ export default function UpdateUserDetails() {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen py-2">
+        <div className="flex flex-col items-center justify-center min-h-screen py-2" style={{margin:120}}>
             <h1>{loading ? "Updating..." : "Update User Details"}</h1>
             {isFetching ? (
                 <p>Loading user details...</p> // Loading message while fetching data
@@ -170,6 +171,15 @@ export default function UpdateUserDetails() {
                         type="text"
                         name="comment"
                         value={userDetail.comment}
+                        onChange={handleChange}
+                        className="p-2 border border-gray-300 rounded-lg mb-4"
+                    />
+                    
+                    <label htmlFor="ptype">Type:</label>
+                    <input
+                        type="text"
+                        name="ptype"
+                        value={userDetail.ptype}
                         onChange={handleChange}
                         className="p-2 border border-gray-300 rounded-lg mb-4"
                     />

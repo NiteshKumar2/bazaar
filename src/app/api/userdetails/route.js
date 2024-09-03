@@ -9,10 +9,10 @@ connect();
 export async function POST(request) {
     try {
         const reqBody = await request.json();
-        const { email, name, description, state, city, location, landmark, phone, image, rating,comment  } = reqBody;
+        const { email, name, description, state, city, location, landmark, phone, image, rating,comment,ptype  } = reqBody;
 
         // Validate required fields
-        if (!email || !name || !description || !state || !city || !location || !phone) {
+        if (!email || !name || !description || !state || !city || !location || !phone || !ptype) {
             return NextResponse.json(
                 { error: "All fields are required." },
                 { status: 400 }
@@ -58,7 +58,8 @@ export async function POST(request) {
             phone,
             image,
             rating,
-            comment
+            comment,
+            ptype
         });
 
         // Save the user details
@@ -84,7 +85,7 @@ export async function POST(request) {
 export async function PUT(request) {
     try {
         const reqBody = await request.json();
-        const { email, name, description, state, city, location, landmark, phone, image, rating, comment } = reqBody;
+        const { email, name, description, state, city, location, landmark, phone, image, rating, comment,ptype } = reqBody;
 
         // Validate required fields (you may want to adjust this based on your update logic)
         if (!email) {
@@ -123,6 +124,7 @@ export async function PUT(request) {
         if (image) userDetail.image = image;
         if (rating) userDetail.rating = rating;
         if (comment) userDetail.comment = comment;
+        if (ptype) userDetail.ptype = ptype;
 
         // Save the updated user details
         const updatedUserDetail = await userDetail.save();

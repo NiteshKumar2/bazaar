@@ -12,7 +12,7 @@ import {
 
 export default function LandingCard() {
   return (
-    <Container sx={{ marginTop: -6 }}>
+    <Container sx={{ marginY:12 }}>
       <Stack
         spacing={4}
         direction={{ xs: "column", sm: "row" }} // Stack items in column on small screens, row on larger screens

@@ -8,24 +8,20 @@ import {
   CardMedia,
   Container,
   Toolbar,
-  Paper,
-  InputBase,
-  TextField,
-  ThemeProvider,
-  createTheme,
-  Autocomplete,
   Stack,
   IconButton,
   Menu,
   MenuItem,
   Typography,
+  ThemeProvider,
+  createTheme,
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import Link from "next/link";
+import { signOut, useSession } from "next-auth/react";
+import LocationSearchComponent from "./LocationSearchComponent";
 import LoginPopup from "./LoginPopup";
 import SignupPopup from "./SignupPopup";
-import { signOut, useSession } from "next-auth/react";
 
 const theme = createTheme({
   palette: {
@@ -74,14 +70,6 @@ export default function Navbar() {
     setOpenLoginPopup(true); // Open login popup
   };
 
-  const top100Location = [
-    { city: "jind", state: "haryana" },
-    { city: "rohtak", state: "haryana" },
-    { city: "panipat", state: "haryana" },
-    { city: "sonipat", state: "haryana" },
-    { city: "karnal", state: "haryana" },
-  ];
-
   return (
     <ThemeProvider theme={theme}>
       <AppBar position="fixed" color="default">
@@ -115,58 +103,8 @@ export default function Navbar() {
               </Link>
             </Box>
 
-            {/* Center: Location Input and Search Bar */}
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flexGrow: 2,
-                gap: 1,
-                p: 0.5,
-                flexWrap: "wrap",
-              }}
-            >
-              <Autocomplete
-                disablePortal
-                options={top100Location}
-                getOptionLabel={(option) =>
-                  `${option.city} (${option.state})`
-                }
-                sx={{ width: { xs: "40%", sm: "40%", md: "40%" } }}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Location"
-                    variant="outlined"
-                    size="small"
-                    sx={{
-                      backgroundColor: "white",
-                      borderRadius: 1,
-                    }}
-                  />
-                )}
-              />
-
-              <Paper
-                component="form"
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  width: "50%",
-                  maxWidth: 300,
-                }}
-              >
-                <InputBase
-                  sx={{ ml: 1, flex: 1 }}
-                  placeholder="Search"
-                  inputProps={{ "aria-label": "Search" }}
-                />
-                <Button type="submit" sx={{ p: "10px" }} aria-label="search">
-                  <SearchIcon />
-                </Button>
-              </Paper>
-            </Box>
+            {/* Center: Location Search */}
+            <LocationSearchComponent />
 
             {/* Right: Login and Signup Buttons */}
             <Box
@@ -176,16 +114,21 @@ export default function Navbar() {
               }}
             >
               <Stack direction="row" spacing={2}>
-                {session ? (<>
-                  <Link href={"/addproduct"}>  <Typography style={{marginTop:9}}>  Add Shop/Product </Typography></Link>
-                <Button
-                    variant="outlined"
-                    color="primary"
-                    onClick={() => signOut()}
-                    sx={{ minWidth: "100px" }}
-                  >
-                    Log out
-                  </Button>
+                {session ? (
+                  <>
+                    <Link href={"/addproduct"}>
+                      <Typography style={{ marginTop: 9 }}>
+                        Add Shop/Product
+                      </Typography>
+                    </Link>
+                    <Button
+                      variant="outlined"
+                      color="primary"
+                      onClick={() => signOut()}
+                      sx={{ minWidth: "100px" }}
+                    >
+                      Log out
+                    </Button>
                   </>
                 ) : (
                   <>
@@ -209,54 +152,62 @@ export default function Navbar() {
                 )}
               </Stack>
             </Box>
+
+            {/* Mobile: Menu for Login and Signup */}
             <Box
               sx={{
                 display: { xs: "flex", sm: "none", md: "none" },
                 alignItems: "center",
               }}
             >
-              <div>
-                <IconButton
-                  size="large"
-                  aria-label="account of current user"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  onClick={handleMenu}
-                  color="inherit"
-                >
-                  <AccountCircle />
-                </IconButton>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: "top",
-                    horizontal: "right",
-                  }}
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
-                >
-                  {session ? ([
-                    <Link key='shop' href={"/addproduct"}>  <Typography style={{marginTop:9, textAlign:'center'}}>Product </Typography></Link>,
-                    <MenuItem key='logout' onClick={() => signOut()}>Log out</MenuItem>]
-                  ) : (
-                    [
-                      <MenuItem key="login" onClick={handleOpenLoginPopup}>
-                        Log in
-                      </MenuItem>,
-                      <MenuItem key="signup" onClick={handleOpenSignupPopup}>
-                        Sign up
-                      </MenuItem>
-                    ]
-                  )}
-                </Menu>
-              </div>
-            </Box>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                {session ? (
+                  <>
+                    <Link key="shop" href={"/addproduct"}>
+                      <Typography style={{ marginTop: 9, textAlign: "center" }}>
+                        Product
+                      </Typography>
+                    </Link>
+                    <MenuItem key="logout" onClick={() => signOut()}>
+                      Log out
+                    </MenuItem>
+                  </>
+                ) : (
+                  <>
+                    <MenuItem key="login" onClick={handleOpenLoginPopup}>
+                      Log in
+                    </MenuItem>
+                    <MenuItem key="signup" onClick={handleOpenSignupPopup}>
+                      Sign up
+                    </MenuItem>
+                  </>
+                )}
+              </Menu>
+              </Box>
             </Box>
           </Toolbar>
         </Container>

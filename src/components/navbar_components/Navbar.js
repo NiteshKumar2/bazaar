@@ -85,128 +85,129 @@ export default function Navbar() {
           >
             {/* Left: Logo */}
             <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
-            <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
-              <Link href="/" passHref>
-                <CardMedia
-                  component="img"
-                  sx={{
-                    width: { xs: 120, sm: 150 },
-                    cursor: "pointer",
-                    height: "auto",
-                    marginLeft: -8,
-                    marginRight: -4,
-                    marginTop: 2,
+              <Box sx={{ display: "flex", alignItems: "center", flexGrow: 1 }}>
+                <Link href="/" >
+                  <CardMedia
+                    component="img"
+                    sx={{
+                      width: { xs: 120, sm: 150 },
+                      cursor: "pointer",
+                      height: "auto",
+                      marginLeft: -8,
+                      marginRight: -4,
+                      marginTop: 2,
+                    }}
+                    src="/logo.png"
+                    alt="Logo"
+                  />
+                </Link>
+              </Box>
+
+              {/* Center: Location Search */}
+              <LocationSearchComponent />
+
+              {/* Right: Login and Signup Buttons */}
+              <Box
+                sx={{
+                  display: { xs: "none", sm: "flex", md: "flex" },
+                  alignItems: "center",
+                }}
+              >
+                <Stack direction="row" spacing={2}>
+                  {session ? (
+                    <>
+                      <Link href={"/addproduct"}>
+                        <Typography style={{ marginTop: 9 }}>
+                          Add Shop/Product
+                        </Typography>
+                      </Link>
+                      <Button
+                        variant="outlined"
+                        color="primary"
+                        onClick={() => signOut()}
+                        sx={{ minWidth: "100px" }}
+                      >
+                        Log out
+                      </Button>
+                    </>
+                  ) : (
+                    <>
+                      <Button
+                        variant="outlined"
+                        color="primary"
+                        onClick={handleOpenLoginPopup}
+                        sx={{ minWidth: "100px" }}
+                      >
+                        Log in
+                      </Button>
+                      <Button
+                        variant="outlined"
+                        color="primary"
+                        onClick={handleOpenSignupPopup}
+                        sx={{ minWidth: "100px" }}
+                      >
+                        Sign up
+                      </Button>
+                    </>
+                  )}
+                </Stack>
+              </Box>
+
+              {/* Mobile: Menu for Login and Signup */}
+              <Box
+                sx={{
+                  display: { xs: "flex", sm: "none", md: "none" },
+                  alignItems: "center",
+                }}
+              >
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleMenu}
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
                   }}
-                  src="/logo.png"
-                  alt="Logo"
-                />
-              </Link>
-            </Box>
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  {session
+                    ? [
+                      <MenuItem key="shop">
+                        <Link href="/addproduct">
+                          <Typography style={{ marginTop: 9, textAlign: "center" }}>
+                            Product
+                          </Typography>
+                        </Link>
+                      </MenuItem>,
+                      <MenuItem key="logout" onClick={() => signOut()}>
+                        Log out
+                      </MenuItem>,
+                    ]
+                    : [
+                      <MenuItem key="login" onClick={handleOpenLoginPopup}>
+                        Log in
+                      </MenuItem>,
+                      <MenuItem key="signup" onClick={handleOpenSignupPopup}>
+                        Sign up
+                      </MenuItem>,
+                    ]}
+                </Menu>
 
-            {/* Center: Location Search */}
-            <LocationSearchComponent />
-
-            {/* Right: Login and Signup Buttons */}
-            <Box
-              sx={{
-                display: { xs: "none", sm: "flex", md: "flex" },
-                alignItems: "center",
-              }}
-            >
-              <Stack direction="row" spacing={2}>
-                {session ? (
-                  <>
-                    <Link href={"/addproduct"}>
-                      <Typography style={{ marginTop: 9 }}>
-                        Add Shop/Product
-                      </Typography>
-                    </Link>
-                    <Button
-                      variant="outlined"
-                      color="primary"
-                      onClick={() => signOut()}
-                      sx={{ minWidth: "100px" }}
-                    >
-                      Log out
-                    </Button>
-                  </>
-                ) : (
-                  <>
-                    <Button
-                      variant="outlined"
-                      color="primary"
-                      onClick={handleOpenLoginPopup}
-                      sx={{ minWidth: "100px" }}
-                    >
-                      Log in
-                    </Button>
-                    <Button
-                      variant="outlined"
-                      color="primary"
-                      onClick={handleOpenSignupPopup}
-                      sx={{ minWidth: "100px" }}
-                    >
-                      Sign up
-                    </Button>
-                  </>
-                )}
-              </Stack>
-            </Box>
-
-            {/* Mobile: Menu for Login and Signup */}
-            <Box
-              sx={{
-                display: { xs: "flex", sm: "none", md: "none" },
-                alignItems: "center",
-              }}
-            >
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                {session ? (
-                  <>
-                    <Link key="shop" href={"/addproduct"}>
-                      <Typography style={{ marginTop: 9, textAlign: "center" }}>
-                        Product
-                      </Typography>
-                    </Link>
-                    <MenuItem key="logout" onClick={() => signOut()}>
-                      Log out
-                    </MenuItem>
-                  </>
-                ) : (
-                  <>
-                    <MenuItem key="login" onClick={handleOpenLoginPopup}>
-                      Log in
-                    </MenuItem>
-                    <MenuItem key="signup" onClick={handleOpenSignupPopup}>
-                      Sign up
-                    </MenuItem>
-                  </>
-                )}
-              </Menu>
               </Box>
             </Box>
           </Toolbar>

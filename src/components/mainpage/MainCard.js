@@ -1,15 +1,17 @@
 "use client";
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
-import Link from "@mui/material/Link";
-import Rating from "@mui/material/Rating";
+import {
+  Box,
+  Typography,
+  Card,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Button,
+  Container,
+  Link,
+  Rating,
+} from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
 const useStyles = makeStyles({
@@ -30,193 +32,134 @@ const useStyles = makeStyles({
     padding: "1px 1px",
     paddingTop: 0,
   },
+  title: {
+    textAlign: "center",
+    marginBottom: 3,
+  },
 });
 
-function MainCard() {
+function CardItem({ card }) {
   const classes = useStyles();
-
-  const cardInfo = [
-    {
-      title: "Star Showroom",
-      description: "Women suit available",
-      price: "$99.99",
-      minutes: "31 min",
-      image: "/shopping1.png",
-      button: "Shop Now",
-    },
-    {
-      title: "Galaxy Store",
-      description: "Men suit collection",
-      price: "$129.99",
-      minutes: "31 min",
-      image: "/shopping1.png",
-      button: "Shop Now",
-    },
-    {
-      title: "Fashion Hub",
-      description: "Latest fashion trends",
-      price: "$79.99",
-      minutes: "31 min",
-      image: "/shopping1.png",
-      button: "Shop Now",
-    },
-    {
-      title: "Fashion Hub",
-      description: "Latest fashion trends",
-      price: "$79.99",
-      minutes: "31 min",
-      image: "/shopping1.png",
-      button: "Shop Now",
-    }, {
-      title: "Fashion Hub",
-      description: "Latest fashion trends",
-      price: "$79.99",
-      minutes: "31 min",
-      image: "/shopping1.png",
-      button: "Shop Now",
-    },
-    // Add more items as needed...
-  ];
-
   return (
-    <Box
-   
-    >
-      <Box
-        sx={{
-          marginTop: { xs: 3, sm: 6, md: 6 },
-          marginBottom: 3,
-          display: "flex",
-          justifyContent: "Left",
-        }}
-      >
-        <Typography
-          variant="h5"
-          sx={{ // Margin below heading
-            textAlign: "center",
-            marginLeft: { xs: 2, sm: 50, md: 50 }, // Centered heading
+    <Card className={classes.card}>
+      <CardMedia
+        component="img"
+        alt={card.name}
+        height="190"
+        image={card.image}
+      />
+      <CardContent className={classes.cardContent}>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
           }}
         >
-          Shopes near me
-        </Typography>
+          <Typography
+            gutterBottom
+            variant="body2"
+            sx={{ color: "red", fontSize: "0.8rem" }}
+          >
+            {card.name}
+          </Typography>
+          <Rating
+            name="read-only"
+            value={4.2}
+            precision={0.1}
+            readOnly
+            size="small"
+          />
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: 1,
+          }}
+        >
+          <Typography
+            variant="body2"
+            sx={{
+              color: "black",
+              fontSize: "0.8rem",
+            }}
+          >
+            {card.description}
+          </Typography>
+          <Typography
+            variant="body2"
+            sx={{
+              color: "black",
+              fontSize: "0.8rem",
+            }}
+          >
+            {card.rating}
+          </Typography>
+        </Box>
+        <CardActions className={classes.cardActions}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              width: "100%",
+            }}
+          >
+            <Button size="small">{card.button}</Button>
+            <Typography
+              variant="body2"
+              sx={{
+                color: "black",
+                fontSize: "0.8rem",
+              }}
+            >
+              {card.city}
+            </Typography>
+          </Box>
+        </CardActions>
+      </CardContent>
+    </Card>
+  );
+}
 
+function MainCard({ userDetail }) {
+  const classes = useStyles();
+
+  return (
+    <Box>
+      <Box sx={{ textAlign: "center", marginTop: 6, marginBottom: 3 }}>
+        <Typography variant="h5" className={classes.title}>
+          Shops near me
+        </Typography>
       </Box>
 
       <Container sx={{ padding: 0 }}>
-
-        <Link
-          href={"/shop_with_us"}
-          style={{ textDecoration: "none" }}
-        >
+        <Link href="/shop_with_us" style={{ textDecoration: "none" }}>
           <Box
             sx={{
               display: "flex",
               flexWrap: "wrap",
-              justifyContent: "left",
+              justifyContent: "flex-start",
+              gap: 2,
             }}
           >
-            {cardInfo.map((card, index) => (
+            {userDetail.map((card) => (
               <Box
-                key={index}
+                key={card._id}
                 sx={{
                   flexBasis: {
-                    xs: "100%", // 1 item per row in phone mode
-                    sm: "48%",  // 2 items per row in tablet mode
-                    md: "30%",  // 3 items per row in window mode
+                    xs: "100%",
+                    sm: "48%",
+                    md: "30%",
                   },
-                  m: {
-                    xs: 1, // 1 item per row in phone mode
-                    sm: 2.3,  // 2 items per row in tablet mode
-                    md: 2.3,  // 3 items per row in window mode
-                  },
+                  boxSizing: "border-box",
                 }}
               >
-                <Card className={classes.card}>
-                  <CardMedia
-                    component="img"
-                    alt={card.title}
-                    height="190"
-                    image={card.image}
-                  />
-                  <CardContent className={classes.cardContent}>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                      }}
-                    >
-                      <Typography
-                        gutterBottom
-                        variant="body2"
-                        sx={{ color: "red", fontSize: "0.8rem" }}
-                      >
-                        {card.title}
-                      </Typography>
-                      <Rating
-                        name="read-only"
-                        value={4.2}
-                        precision={0.1}
-                        readOnly
-                        size="small"
-                      />
-                    </Box>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        marginBottom: 1,
-                      }}
-                    >
-                      <Typography
-                        variant="body2"
-                        sx={{
-                          color: "black",
-                          fontSize: "0.8rem",
-                        }}
-                      >
-                        {card.description}
-                      </Typography>
-                      <Typography
-                        variant="body2"
-                        sx={{
-                          color: "black",
-                          fontSize: "0.8rem",
-                        }}
-                      >
-                        {card.price}
-                      </Typography>
-                    </Box>
-                    <CardActions className={classes.cardActions}>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "space-between",
-                          width: "100%",
-                          marginBottom: -2,
-                        }}
-                      >
-
-                        <Button size="small">{card.button}</Button>
-
-                        <Typography
-                          variant="body2"
-                          sx={{
-                            color: "black",
-                            fontSize: "0.8rem",
-                          }}
-                        >
-                          {card.minutes}
-                        </Typography>
-                      </Box>
-                    </CardActions>
-                  </CardContent>
-                </Card>
+                <CardItem card={card} />
               </Box>
             ))}
-
           </Box>
         </Link>
       </Container>

@@ -1,12 +1,43 @@
-import * as React from "react";
+"use client"; // Ensure the component is client-side
+
+import React, { useState, useEffect } from "react";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { useRouter } from "next/navigation"; // Use Next.js router for navigation
+import axios from "axios"; // For fetching data
+import { Button } from "@mui/material";
+import Link from "next/link";
 
 export default function LandingTypeshow() {
+  const [cityData, setCityData] = useState([]);
+  const router = useRouter();
+
+  // Fetch city data from the API
+  useEffect(() => {
+    const fetchCityData = async () => {
+      try {
+        const response = await axios.get("/api/search/city");
+        if (response.data.success) {
+          setCityData(response.data.data || []);
+        } else {
+          console.error("Failed to fetch cities.");
+        }
+      } catch (error) {
+        console.error("Error fetching city data:", error);
+      }
+    };
+
+    fetchCityData();
+  }, []);
+
+  // Handle city button click to navigate to the next page
+  const handleCityClick = (city) => {
+    router.push(`/shopenearme?location=${city}`);
+  };
+
   return (
     <div
       style={{
@@ -44,9 +75,11 @@ export default function LandingTypeshow() {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            Floral Print Dresses Casual Maxi Dresses Boho Chic Outfits Elegant
+          <Link href={`/shopenearme?query=vintage`}>Vintage </Link>
+            <Link href={`/shopenearme?query=floral`}>Floral Print Dresses </Link>  
+            <Link href={`/shopenearme?query=sporty`}>Sporty </Link> Casual Maxi Dresses Boho Chic Outfits Elegant
             Evening Gowns Classic Midi Dresses Street Style Fashion Comfortable
-            Loungewear Party Cocktail Dresses Vintage Retro Dresses Sporty
+            Loungewear Party Cocktail Dresses Retro Dresses 
             Athleisure Wear
           </Typography>
         </AccordionDetails>
@@ -89,8 +122,15 @@ export default function LandingTypeshow() {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-            Jind Delhi Chandigarh Gurugram Faridabad Noida Ghaziabad Jaipur
-            Ambala Ludhiana Meerut
+            {cityData.map((data, index) => (
+              <Button
+                key={index} // Ensure each Button has a unique key
+                variant="text"
+                onClick={() => handleCityClick(data)} // Handle city click
+              >
+                <Typography>{data}</Typography>
+              </Button>
+            ))}
           </Typography>
         </AccordionDetails>
       </Accordion>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Paper, InputBase, Button, TextField, Autocomplete } from "@mui/material";
+import { Box, Paper, InputBase, Button, TextField, Autocomplete, CircularProgress } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
@@ -10,7 +10,9 @@ export default function LocationSearchComponent() {
     const [selectedLocation, setSelectedLocation] = useState(null);
     const [cityDetail, setCityDetail] = useState([]);
     const [isFetching, setIsFetching] = useState(false);
+    const [query, setQuery] = useState('');
 
+    // Fetch city details on component mount
     useEffect(() => {
         const fetchCityDetails = async () => {
             setIsFetching(true);
@@ -29,7 +31,7 @@ export default function LocationSearchComponent() {
             }
         };
 
-        fetchCityDetails(); // Fetch city details on component mount
+        fetchCityDetails();
     }, []);
 
     const handleSearch = (event) => {
@@ -37,8 +39,20 @@ export default function LocationSearchComponent() {
         if (selectedLocation) {
             toast.success(`Selected Location: ${selectedLocation}`);
             router.push(`/shopenearme?location=${selectedLocation}`);
+            setSelectedLocation(null); // Clear selection after search
         } else {
             toast.error("Please select a location.");
+        }
+    };
+
+    const handleQuerySearch = (event) => {
+        event.preventDefault();
+        if (query) {
+            toast.success(`Selected query: ${query}`);
+            router.push(`/shopenearme?query=${query}`);
+            setQuery(''); // Clear query after search
+        } else {
+            toast.error("Please enter a query.");
         }
     };
 
@@ -47,19 +61,15 @@ export default function LocationSearchComponent() {
             sx={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "left",
+                justifyContent: "flex-start",
                 flexGrow: 1,
                 gap: 0.1,
-                p: -1,
+                p: 0,
                 flexWrap: "wrap",
                 mr: { xs: 1, sm: 10, md: 10 },
             }}
         >
-            <Box
-                component="form"
-                onSubmit={handleSearch}
-                sx={{ flexGrow: 2 }}
-            >
+            <Box component="form" onSubmit={handleSearch} sx={{ flexGrow: 2 }}>
                 <Autocomplete
                     disablePortal
                     options={cityDetail}
@@ -82,21 +92,17 @@ export default function LocationSearchComponent() {
                     )}
                 />
             </Box>
-            <Paper
-                sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    width: "50%",
-                    maxWidth: 300,
-                }}
-            >
+
+            <Paper component="form" onSubmit={handleQuerySearch} sx={{ display: "flex", alignItems: "center", width: "50%", maxWidth: 300 }}>
                 <InputBase
                     sx={{ ml: 1, flex: 1 }}
                     placeholder="Search"
                     inputProps={{ "aria-label": "Search" }}
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
                 />
-                <Button type="submit" sx={{ p: "10px" }} aria-label="search">
-                    <SearchIcon />
+                <Button type="submit" sx={{ p: "10px" }} aria-label="search" disabled={isFetching || !query}>
+                    {isFetching ? <CircularProgress size={24} /> : <SearchIcon />}
                 </Button>
             </Paper>
         </Box>

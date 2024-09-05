@@ -61,6 +61,10 @@ const userdetailSchema = new mongoose.Schema({
         enum: ["male", "female", "child"],  // Options for type
         required: [true, "Please select at least one type"],
     },
+    search: {
+        type: String,
+        trim: true,
+    },
 });
 
 // Create an index on the email field for better performance

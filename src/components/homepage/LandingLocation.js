@@ -1,27 +1,45 @@
-"use client"; // Ensure this is at the top
+"use client"; // Ensure the component is client-side
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Box, Typography } from "@mui/material";
 import { KeyboardArrowRight } from "@mui/icons-material";
+import { useRouter } from "next/navigation"; // Use Next.js router for navigation
+import axios from "axios"; // For fetching data
 
 function LandingLocation() {
-  const buttonData = [
-    { city: "jind", state: "423 " },
-    { city: "panipat", state: "443 " },
-    { city: "karnal", state: "432 " },
-    { city: "sonipat", state: "4321 " },
-    { city: "jind", state: "434 " },
-    { city: "Locality", state: "4634" },
+  const [cityData, setCityData] = useState([]);
+  const router = useRouter();
 
-  ];
+  // Fetch city data from the API
+  useEffect(() => {
+    const fetchCityData = async () => {
+      try {
+        const response = await axios.get("/api/search/city");
+        if (response.data.success) {
+          setCityData(response.data.data || []);
+        } else {
+          console.error("Failed to fetch cities.");
+        }
+      } catch (error) {
+        console.error("Error fetching city data:", error);
+      }
+    };
+
+    fetchCityData();
+  }, []);
+
+  // Handle city button click to navigate to the next page
+  const handleCityClick = (city) => {
+    router.push(`/shopenearme?location=${city}`);
+  };
 
   return (
     <Box
       sx={{
-        paddingX: { xs: 3, sm: 55, md: 55 }, // Padding on the x-axis included for all screen sizes
-        paddingY: { xs: 3, sm: 9, md: 11 }, // Vertical padding based on screen size
-        marginTop: 6, // Top margin
-        backgroundColor:"rgb(248 248 248)"
+        paddingX: { xs: 3, sm: 55, md: 55 }, // Padding on the x-axis for all screen sizes
+        paddingY: { xs: 3, sm: 9, md: 11 }, // Vertical padding
+        marginTop: 6,
+        backgroundColor: "rgb(248 248 248)",
       }}
     >
       <Typography
@@ -42,19 +60,19 @@ function LandingLocation() {
           gap: 1,
         }}
       >
-        {buttonData.map((data, index) => (
+        {cityData.map((data, index) => (
           <Box
             key={index}
             sx={{
               flex: {
                 xs: "1 1 100%", // 1 item per row in phone mode
-                sm: "1 1 calc(50% - 8px)", // 2 items per row in window mode
+                sm: "1 1 calc(50% - 8px)", // 2 items per row in larger screens
               },
               maxWidth: {
-                xs: "100%", // 100% width in phone mode
-                sm: "calc(50% - 8px)", // 50% width in window mode
+                xs: "100%", // Full width in phone mode
+                sm: "calc(50% - 8px)", // Half width in larger screens
               },
-              marginBottom: 1, // Reduced bottom margin to decrease vertical gap
+              marginBottom: 1,
               display: "flex",
               justifyContent: "center",
             }}
@@ -62,16 +80,17 @@ function LandingLocation() {
             <Button
               variant="contained"
               endIcon={<KeyboardArrowRight />}
+              onClick={() => handleCityClick(data)} // Handle city click
               sx={{
                 backgroundColor: "white",
                 color: "black",
-                padding: "12px", // Reduced padding for a more compact look
+                padding: "12px", // Reduced padding for a compact look
                 width: "100%",
                 "&:hover": { backgroundColor: "#f0f0f0" },
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                fontSize: "0.9rem", // Reduced font size for a compact appearance
+                fontSize: "0.9rem", // Compact font size
               }}
             >
               <Box
@@ -80,9 +99,10 @@ function LandingLocation() {
                   textAlign: "left",
                 }}
               >
-                {data.city}
+                {data}
                 <br />
-                {data.state}
+                {"22"}
+                
               </Box>
             </Button>
           </Box>

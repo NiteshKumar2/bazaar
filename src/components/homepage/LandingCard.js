@@ -19,7 +19,7 @@ export default function LandingCard() {
         justifyContent="center"
         alignItems="center" // Center items horizontally
       >
-        <Link href="/order_with_us" underline="none">
+        <Link href="/shopenearme?gender=female" underline="none">
           <Card sx={{ width:{ xs: 320, sm: 360, md: 360 }, margin: "0 auto" }}> {/* Set width directly */}
             <CardActionArea>
               <CardMedia
@@ -45,7 +45,7 @@ export default function LandingCard() {
             </CardActionArea>
           </Card>
         </Link>
-
+        <Link href="/shopenearme?gender=male" underline="none">
         <Card sx={{ width:{ xs: 320, sm: 380, md: 380 }, margin: "0 auto" }}> {/* Set width directly */}
           <CardActionArea>
             <CardMedia
@@ -70,7 +70,8 @@ export default function LandingCard() {
             </CardContent>
           </CardActionArea>
         </Card>
-
+        </Link>
+        <Link href="/shopenearme?gender=child" underline="none">
         <Card sx={{ width:{ xs: 320, sm: 380, md: 380 }, margin: "0 auto" }}> {/* Set width directly */}
           <CardActionArea>
             <CardMedia
@@ -95,6 +96,7 @@ export default function LandingCard() {
             </CardContent>
           </CardActionArea>
         </Card>
+        </Link>
       </Stack>
     </Container>
   );

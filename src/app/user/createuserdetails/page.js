@@ -17,8 +17,9 @@ export default function CreateUserDetails() {
         phone: "",
         image: "",
         rating: "",
-        comment:"",
-        ptype:""
+        comment: "",
+        ptype: "",
+        search: "",
     });
     const [loading, setLoading] = useState(false);
 
@@ -67,87 +68,95 @@ export default function CreateUserDetails() {
                     className="p-2 border border-gray-300 rounded-lg mb-4"
                 />
                 <label htmlFor="description">Description:</label>
-                    <input
-                        type="text"
-                        name="description"
-                        value={userDetail.description}
-                        onChange={handleChange}
-                        className="p-2 border border-gray-300 rounded-lg mb-4"
-                    />
-                    <label htmlFor="state">State:</label>
-                    <input
-                        type="text"
-                        name="state"
-                        value={userDetail.state}
-                        onChange={handleChange}
-                        className="p-2 border border-gray-300 rounded-lg mb-4"
-                    />
-                    <label htmlFor="city">City:</label>
-                    <input
-                        type="text"
-                        name="city"
-                        value={userDetail.city}
-                        onChange={handleChange}
-                        className="p-2 border border-gray-300 rounded-lg mb-4"
-                    />
-                    <label htmlFor="location">Location:</label>
-                    <input
-                        type="text"
-                        name="location"
-                        value={userDetail.location}
-                        onChange={handleChange}
-                        className="p-2 border border-gray-300 rounded-lg mb-4"
-                    />
-                    <label htmlFor="landmark">Landmark:</label>
-                    <input
-                        type="text"
-                        name="landmark"
-                        value={userDetail.landmark}
-                        onChange={handleChange}
-                        className="p-2 border border-gray-300 rounded-lg mb-4"
-                    />
-                    <label htmlFor="phone">Phone:</label>
-                    <input
-                        type="text"
-                        name="phone"
-                        value={userDetail.phone}
-                        onChange={handleChange}
-                        className="p-2 border border-gray-300 rounded-lg mb-4"
-                    />
-                    <label htmlFor="image">Image URL:</label>
-                    <input
-                        type="text"
-                        name="image"
-                        value={userDetail.image}
-                        onChange={handleChange}
-                        className="p-2 border border-gray-300 rounded-lg mb-4"
-                    />
-                    <label htmlFor="rating">Rating:</label>
-                    <input
-                        type="text"
-                        name="rating"
-                        value={userDetail.rating}
-                        onChange={handleChange}
-                        className="p-2 border border-gray-300 rounded-lg mb-4"
-                    />
-                    <label htmlFor="comment">Comment:</label>
-                    <input
-                        type="text"
-                        name="comment"
-                        value={userDetail.comment}
-                        onChange={handleChange}
-                        className="p-2 border border-gray-300 rounded-lg mb-4"
-                    />
-                    
-                    <label htmlFor="ptype">Type:</label>
-                    <input
-                        type="text"
-                        name="ptype"
-                        value={userDetail.ptype}
-                        onChange={handleChange}
-                        className="p-2 border border-gray-300 rounded-lg mb-4"
-                    />
+                <input
+                    type="text"
+                    name="description"
+                    value={userDetail.description}
+                    onChange={handleChange}
+                    className="p-2 border border-gray-300 rounded-lg mb-4"
+                />
+                <label htmlFor="state">State:</label>
+                <input
+                    type="text"
+                    name="state"
+                    value={userDetail.state}
+                    onChange={handleChange}
+                    className="p-2 border border-gray-300 rounded-lg mb-4"
+                />
+                <label htmlFor="city">City:</label>
+                <input
+                    type="text"
+                    name="city"
+                    value={userDetail.city}
+                    onChange={handleChange}
+                    className="p-2 border border-gray-300 rounded-lg mb-4"
+                />
+                <label htmlFor="location">Location:</label>
+                <input
+                    type="text"
+                    name="location"
+                    value={userDetail.location}
+                    onChange={handleChange}
+                    className="p-2 border border-gray-300 rounded-lg mb-4"
+                />
+                <label htmlFor="landmark">Landmark:</label>
+                <input
+                    type="text"
+                    name="landmark"
+                    value={userDetail.landmark}
+                    onChange={handleChange}
+                    className="p-2 border border-gray-300 rounded-lg mb-4"
+                />
+                <label htmlFor="phone">Phone:</label>
+                <input
+                    type="text"
+                    name="phone"
+                    value={userDetail.phone}
+                    onChange={handleChange}
+                    className="p-2 border border-gray-300 rounded-lg mb-4"
+                />
+                <label htmlFor="image">Image URL:</label>
+                <input
+                    type="text"
+                    name="image"
+                    value={userDetail.image}
+                    onChange={handleChange}
+                    className="p-2 border border-gray-300 rounded-lg mb-4"
+                />
+                <label htmlFor="rating">Rating:</label>
+                <input
+                    type="text"
+                    name="rating"
+                    value={userDetail.rating}
+                    onChange={handleChange}
+                    className="p-2 border border-gray-300 rounded-lg mb-4"
+                />
+                <label htmlFor="comment">Comment:</label>
+                <input
+                    type="text"
+                    name="comment"
+                    value={userDetail.comment}
+                    onChange={handleChange}
+                    className="p-2 border border-gray-300 rounded-lg mb-4"
+                />
 
+                <label htmlFor="ptype">Type:</label>
+                <input
+                    type="text"
+                    name="ptype"
+                    value={userDetail.ptype}
+                    onChange={handleChange}
+                    className="p-2 border border-gray-300 rounded-lg mb-4"
+                />
+
+                <label htmlFor="search">search:</label>
+                <input
+                    type="text"
+                    name="search"
+                    value={userDetail.search}
+                    onChange={handleChange}
+                    className="p-2 border border-gray-300 rounded-lg mb-4"
+                />
                 {/* Add other input fields similarly */}
                 <button
                     type="submit"

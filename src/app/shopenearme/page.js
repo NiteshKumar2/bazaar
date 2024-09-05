@@ -11,6 +11,8 @@ const shopenearme = ({ searchParams }) => {
   const [userDetail, setUserDetail] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   const location = searchParams.location;
+  const gender = searchParams.gender;
+  const query = searchParams.query;
 
   // Fetch user details by location when the component mounts or when location changes
   useEffect(() => {
@@ -28,10 +30,36 @@ const shopenearme = ({ searchParams }) => {
           setIsFetching(false); // Set fetching state to false after the request
         }
       }
+      if(gender){
+        setIsFetching(true); // Set fetching state to true
+        try {
+          const response = await axios.get(`/api/search/usertype?gender=${gender}`);
+          setUserDetail(response.data.data || []); // Set the user details in state, ensuring it's an array
+          toast.success(`Fetched user details for location: ${gender}`);
+        } catch (error) {
+          console.error("Error fetching user details:", error.message);
+          toast.error("Error fetching user details: " + error.message);
+        } finally {
+          setIsFetching(false); // Set fetching state to false after the request
+        }
+      }
+      if(query){
+        setIsFetching(true); // Set fetching state to true
+        try {
+          const response = await axios.get(`/api/search/searchquery?query=${query}`);
+          setUserDetail(response.data.data || []); // Set the user details in state, ensuring it's an array
+          toast.success(`Fetched user details for location: ${gender}`);
+        } catch (error) {
+          console.error("Error fetching user details:", error.message);
+          toast.error("Error fetching user details: " + error.message);
+        } finally {
+          setIsFetching(false); // Set fetching state to false after the request
+        }
+      }
     };
 
     fetchUserDetails(); // Call the function
-  }, [location]); // Dependency array to run effect when location changes
+  }, [location,gender,query]); // Dependency array to run effect when location changes
 
   return (
     <>

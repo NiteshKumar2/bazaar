@@ -9,7 +9,7 @@ connect();
 export async function POST(request) {
     try {
         const reqBody = await request.json();
-        const { email, name, description, state, city, location, landmark, phone, image, rating,comment,ptype  } = reqBody;
+        const { email, name, description, state, city, location, landmark, phone, image, rating,comment,ptype,search  } = reqBody;
 
         // Validate required fields
         if (!email || !name || !description || !state || !city || !location || !phone || !ptype) {
@@ -59,7 +59,8 @@ export async function POST(request) {
             image,
             rating,
             comment,
-            ptype
+            ptype,
+            search
         });
 
         // Save the user details
@@ -85,7 +86,7 @@ export async function POST(request) {
 export async function PUT(request) {
     try {
         const reqBody = await request.json();
-        const { email, name, description, state, city, location, landmark, phone, image, rating, comment,ptype } = reqBody;
+        const { email, name, description, state, city, location, landmark, phone, image, rating, comment,ptype,search } = reqBody;
 
         // Validate required fields (you may want to adjust this based on your update logic)
         if (!email) {
@@ -125,6 +126,7 @@ export async function PUT(request) {
         if (rating) userDetail.rating = rating;
         if (comment) userDetail.comment = comment;
         if (ptype) userDetail.ptype = ptype;
+        if (search) userDetail.search = search;
 
         // Save the updated user details
         const updatedUserDetail = await userDetail.save();

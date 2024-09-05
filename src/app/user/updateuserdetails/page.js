@@ -20,7 +20,8 @@ export default function UpdateUserDetails() {
         image: "",
         rating: "",
         comment: "",
-        ptype:""
+        ptype:"",
+        search:""
     });
     
     const [loading, setLoading] = useState(false);
@@ -180,6 +181,15 @@ export default function UpdateUserDetails() {
                         type="text"
                         name="ptype"
                         value={userDetail.ptype}
+                        onChange={handleChange}
+                        className="p-2 border border-gray-300 rounded-lg mb-4"
+                    />
+                    
+                    <label htmlFor="search">Search:</label>
+                    <input
+                        type="text"
+                        name="search"
+                        value={userDetail.search}
                         onChange={handleChange}
                         className="p-2 border border-gray-300 rounded-lg mb-4"
                     />

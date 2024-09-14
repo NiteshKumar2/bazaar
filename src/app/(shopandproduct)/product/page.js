@@ -267,6 +267,7 @@ function Product() {
                 >
                   Delete
                 </Button>
+                <Divider sx={{ my: 2 }} />
               </Box>
             ))}
           </Collapse>

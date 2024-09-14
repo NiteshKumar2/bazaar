@@ -12,8 +12,8 @@ import { ArrowBackIos, ArrowForwardIos } from "@mui/icons-material";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
 const items = [
-  { id: 1, title: "Pizza", img: "shopping1.png", link: "#" },
-  { id: 2, title: "Burger", img: "shopping1.png", link: "#" },
+  { id: 1, title: "Vintage ", img: "shopping1.png", link: `/shopenearme?query=vintage` },
+  { id: 2, title: "Floral Print Dresses", img: "shopping1.png", link: `/shopenearme?query=floral` },
   { id: 3, title: "Cake", img: "shopping1.png", link: "#" },
   { id: 4, title: "Chole Bhature", img: "shopping1.png", link: "#" },
   { id: 5, title: "Thali", img: "shopping1.png", link: "#" },

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Typography,
@@ -10,31 +10,113 @@ import {
   InputAdornment,
   Divider,
   Collapse,
+  Link,
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { getSession } from "next-auth/react";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-import Link from "@mui/material/Link";
+import axios from "axios";
+import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
-function createshop() {
-  const [activeStep, setActiveStep] = useState(1);
-  const [openSections, setOpenSections] = useState({
-    details: false,
-    contactNumber: false,
-    ownerDetails: false,
+function CreateShop() {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [isFetching, setIsFetching] = useState(true);
+  const [shopDetails, setShopDetails] = useState({
+    email: "",
+    name: "",
+    description: "",
+    state: "",
+    city: "",
+    location: "",
+    landmark: "",
+    phone: "",
+    image: "",
+    rating: "",
+    comment: "",
+    ptype: "",
+    search: "",
   });
 
-  const handleStepClick = (step) => {
-    setActiveStep(step);
+  const [openSections, setOpenSections] = useState({
+    details: false,
+  });
+
+  const fetchUserDetails = async (email) => {
+    try {
+      const response = await axios.get(`/api/userdetails?email=${email}`);
+      router.push("/updateshop")// Set the user details in state
+    } catch (error) {
+      console.error("Error fetching user details:", error.message);
+    } finally {
+      setIsFetching(false);
+    }
   };
+
+  // Use effect to fetch user details when the component mounts
+  useEffect(() => {
+    const fetchSessionAndUserDetails = async () => {
+      const session = await getSession(); // Retrieve the session
+
+      if (session && session.user) {
+        const email = session.user.email; // Get the user's email from session
+        fetchUserDetails(email);
+      } else {
+        toast.error("User not authenticated.");
+        router.push("/login"); // Redirect to login if not authenticated
+      }
+    };
+
+    fetchSessionAndUserDetails();
+  }, [router]); // Include router in the dependency array
 
   const toggleSection = (section) => {
     setOpenSections((prev) => ({ ...prev, [section]: !prev[section] }));
   };
 
-  const renderTextField = (label, props) => (
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setShopDetails((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const validateFields = () => {
+    const { name, description, phone, image, rating } = shopDetails;
+    if (!name || !description || !phone || !image || !rating) {
+      toast.error("Please fill in all the required fields.");
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateFields()) return;
+
+    setLoading(true);
+    try {
+      const response = await axios.post("/api/userdetails", shopDetails);
+      toast.success("Shop details created successfully!");
+      router.push("/updateshop"); // Navigate to a success page
+    } catch (error) {
+      toast.error("Failed to create shop details: " + error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const renderTextField = (label, name, type = "text", props) => (
     <Box sx={{ mt: 2 }}>
-      <TextField label={label} fullWidth margin="normal" {...props} />
+      <TextField
+        label={label}
+        name={name}
+        type={type}
+        value={shopDetails[name]}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+        {...props}
+      />
     </Box>
   );
 
@@ -58,9 +140,8 @@ function createshop() {
       sx={{
         position: "relative",
         backgroundColor: "white",
-        color: "#000",
         mb: 4,
-        mt:8,
+        mt: 8,
         p: 4,
         display: "flex",
         justifyContent: "space-between",
@@ -70,8 +151,8 @@ function createshop() {
         height: "100%",
       }}
     >
-      {/* Left Container */}
-      <Box sx={{ flex: 1, p: 2, marginLeft: { xs: 4, sm: 25, md: 10, lg: 50 } }}>
+      {/* Left Section */}
+      <Box sx={{ flex: 1, p: 2, marginLeft: { xs: 4, sm: 10, md: 10, lg: 50 } }}>
         <Box
           sx={{
             position: "relative",
@@ -84,102 +165,93 @@ function createshop() {
             width: { xs: 200, sm: 300, md: 200, lg: 200 },
           }}
         >
-          <Typography variant="h6">Create your Shop page</Typography>
+          <Typography variant="h6">Create your Shop Page</Typography>
           <Divider sx={{ my: 2 }} />
-          <Link href="/shopping_information" >
+
+          <Link underline="none">
             <Typography
               variant="body1"
-              onClick={() => handleStepClick(1)}
               sx={{
-                color: activeStep === 1 ? "primary.main" : "text.primary",
+                color: "primary.main",
                 textTransform: "none",
                 cursor: "pointer",
               }}
             >
-              1 Enter your shop details
+              1. Enter your shop details
             </Typography>
           </Link>
           <Typography variant="body2" color="textSecondary">
             Shop name, address, contact no., owner details
           </Typography>
-          <Link href="/updateshop" >
+
+          <Link href="/updateshop" underline="none">
             <Typography
               variant="body1"
-              onClick={() => handleStepClick(2)}
               sx={{
-                color: activeStep === 2 ? "primary.main" : "text.primary",
+                color: "text.primary",
                 textTransform: "none",
                 cursor: "pointer",
+                mt: 2,
               }}
             >
-              2 Update your shop details
-            </Typography>
-            <Typography variant="body2" color="textSecondary">
-              Establishment & cuisine type, opening hours
+              2. Update your shop details
             </Typography>
           </Link>
+          <Typography variant="body2" color="textSecondary">
+            Establishment & cuisine type, opening hours
+          </Typography>
+
+          <Link href="/product" underline="none">
+            <Typography
+              variant="body1"
+              sx={{
+                color: "text.primary",
+                textTransform: "none",
+                cursor: "pointer",
+                mt: 2,
+              }}
+            >
+              3. your product details
+            </Typography>
+          </Link>
+          <Typography variant="body2" color="textSecondary">
+            Product name, address, and contact number
+          </Typography>
         </Box>
       </Box>
 
-      {/* Right Container */}
+      {/* Right Section */}
       <Box sx={{ flex: 2, p: 2, marginLeft: { xs: 4, sm: 25, md: -5, lg: -30 } }}>
         <Typography variant="h6" sx={{ mb: 2 }}>Shop Details</Typography>
 
-        {/* Shopping Details Section */}
-        {renderSection("Enter your shop details", "details", (
-          <>
-            <Typography variant="body2" color="textSecondary">Name, address, and location</Typography>
-            {renderTextField("Shop name")}
-            {renderTextField("Shop Description")}
-            {renderTextField("State")}
-            {renderTextField("City")}
-            {renderTextField("Enter your shop’s locality, e.g., Sector 43, Gurgaon", {
-              InputProps: {
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton>
-                      <SearchIcon />
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              },
-            })}
-            <Typography variant="body2" color="textSecondary">
-              Please place the pin accurately at your outlet’s location on the map
-            </Typography>
-            {renderTextField("Landmark")}
-            <Box sx={{ display: "flex", alignItems: "center", flexDirection: { xs: "column", sm: "row" } }}>
-              {renderTextField("Phone number")}
-              <Button variant="contained" sx={{ mt: { xs: 2, sm: 0 }, ml: { sm: 2 } }}>Verify</Button>
-            </Box>
-            {renderTextField("Image")}
-            <Box sx={{ mt: 2 }}>
-              {renderTextField("Rating")}
-              {renderTextField("Comment")}
-            </Box>
-            <Box sx={{ display: "flex", alignItems: "center", flexDirection: { xs: "column", sm: "row" } }}>
-              <Button variant="contained" sx={{ mt: { xs: 2, sm: 0 }, ml: { sm: 2 } }}>Update</Button>
-              <Button variant="contained" sx={{ mt: { xs: 2, sm: 0 }, ml: { sm: 2 } }}>Cancel</Button>
-            </Box>
-          </>
-        ))}
-
-        {/* Contact Number Section */}
-        {renderSection("Enter your shop contact number", "contactNumber", (
-          <>
-            <Box sx={{ display: "flex", alignItems: "center", flexDirection: { xs: "column", sm: "row" } }}>
-              <TextField label="Phone number" fullWidth margin="normal" />
-              <Button variant="contained" sx={{ mt: { xs: 2, sm: 0 }, ml: { sm: 2 } }}>Verify</Button>
-            </Box>
-            <Box sx={{ display: "flex", alignItems: "center", flexDirection: { xs: "column", sm: "row" } }}>
-              <Button variant="contained" sx={{ mt: { xs: 2, sm: 0 }, ml: { sm: 2 } }}>Update</Button>
-              <Button variant="contained" sx={{ mt: { xs: 2, sm: 0 }, ml: { sm: 2 } }}>Cancel</Button>
-            </Box>
-          </>
-        ))}
+        <form onSubmit={handleSubmit}>
+          {renderSection("Enter your shop details", "details", (
+            <>
+              {renderTextField("Shop email", "email")}
+              {renderTextField("Shop name", "name")}
+              {renderTextField("Shop Description", "description")}
+              {renderTextField("State", "state")}
+              {renderTextField("City", "city")}
+              {renderTextField("Enter your shop’s locality, e.g., Sector 43", "location")}
+              {renderTextField("Landmark", "landmark")}
+              {renderTextField("Phone number", "phone", "tel")}
+              {renderTextField("Image URL", "image")}
+              {renderTextField("Rating", "rating", "number", { inputProps: { min: 0, max: 5 } })}
+              {renderTextField("Comment", "comment")}
+              {renderTextField("Type", "ptype")}
+              {renderTextField("Search", "search")}
+              <Box sx={{ display: "flex", alignItems: "center", flexDirection: { xs: "column", sm: "row" } }}>
+                <Button variant="contained" type="submit" disabled={loading}>
+                  {loading ? "Submitting..." : "Submit"}
+                </Button>
+                <Button variant="outlined" sx={{ ml: { sm: 2 }, mt: { xs: 2, sm: 0 } }} onClick={() => router.push('/')}>Cancel</Button>
+              </Box>
+            </>
+          ))}
+        </form>
       </Box>
     </Paper>
   );
 }
 
-export default createshop;
+export default CreateShop;

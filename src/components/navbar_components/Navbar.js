@@ -116,7 +116,7 @@ export default function Navbar() {
                 <Stack direction="row" spacing={2}>
                   {session ? (
                     <>
-                      <Link href={"/addproduct"}>
+                      <Link href={"/createshop"}>
                         <Typography style={{ marginTop: 9 }}>
                           Add Shop/Product
                         </Typography>
@@ -188,7 +188,7 @@ export default function Navbar() {
                   {session
                     ? [
                       <MenuItem key="shop">
-                        <Link href="/addproduct">
+                        <Link href="/createshop">
                           <Typography style={{ marginTop: 9, textAlign: "center" }}>
                             Product
                           </Typography>

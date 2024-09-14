@@ -46,7 +46,7 @@ export default function CreateUserDetails() {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen py-2">
+        <div className="flex flex-col items-center justify-center min-h-screen py-2" style={{margin:93}}>
             <h1>{loading ? "Creating..." : "Create User Details"}</h1>
             <form onSubmit={handleCreate} className="flex flex-col">
                 <label htmlFor="email">Email:</label>

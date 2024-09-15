@@ -64,7 +64,7 @@ const shopenearme = ({ searchParams }) => {
   return (
     <>
       {isFetching && <p>Loading user details...</p>} {/* Show loading message */}
-      <FilterSection />
+      <FilterSection location={location} />
       <CarouselSection />
       <MainCard userDetail={userDetail} />
       <LandingTypeshow />

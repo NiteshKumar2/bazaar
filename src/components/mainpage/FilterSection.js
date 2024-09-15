@@ -19,7 +19,7 @@ import {
 } from "@mui/material";
 import TuneIcon from "@mui/icons-material/Tune";
 
-function FilterSection() {
+function FilterSection({ location }) {
   const [openFilters, setOpenFilters] = useState(false);
   const [selectedOption, setSelectedOption] = useState("Sort by"); // Set a default option
   const [searchText, setSearchText] = useState("");
@@ -95,7 +95,8 @@ function FilterSection() {
             marginBottom: { xs: 0.5, sm: 1, md: 1.5 }, // Responsive margin bottom
           }}
         >
-          Home / India / Agra / Restaurant
+          
+          Home / India / {location }
         </Typography>
       </Box>
       <Box

@@ -42,6 +42,7 @@ function CardItem({ card }) {
   const classes = useStyles();
   return (
     <Card className={classes.card}>
+      <Link href={`/shopnearme/shop?email=${card.email}`}  style={{ textDecoration: "none" }}>
       <CardMedia
         component="img"
         alt={card.name}
@@ -120,6 +121,7 @@ function CardItem({ card }) {
           </Box>
         </CardActions>
       </CardContent>
+      </Link>
     </Card>
   );
 }
@@ -136,7 +138,6 @@ function MainCard({ userDetail }) {
       </Box>
 
       <Container sx={{ padding: 0 }}>
-        <Link href="/shop_with_us" style={{ textDecoration: "none" }}>
           <Box
             sx={{
               display: "flex",
@@ -161,7 +162,6 @@ function MainCard({ userDetail }) {
               </Box>
             ))}
           </Box>
-        </Link>
       </Container>
     </Box>
   );

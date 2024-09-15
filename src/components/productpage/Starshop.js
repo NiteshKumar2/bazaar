@@ -13,7 +13,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import StarIcon from "@mui/icons-material/Star";
 import Link from "@mui/material/Link";
 
-export default function Starshop() {
+export default function Starshop({userDetail}) {
   // Common Styles
   const buttonStyles = {
     color: "black",
@@ -46,7 +46,7 @@ export default function Starshop() {
           marginBottom: { xs: 0.5, sm: 1, md: 1.5 },
         }}
       >
-        Home / India /
+        Home / India / {userDetail.state} / {userDetail.city}
       </Typography>
 
       {/* Image Section */}
@@ -60,7 +60,7 @@ export default function Starshop() {
           transition: "transform 0.3s ease",
           "&:hover": { transform: "scale(1.05)" },
         }}
-        image="/shopping1.png"
+        image={userDetail.image}
         alt="Shop"
       />
 
@@ -84,7 +84,7 @@ export default function Starshop() {
             variant="h4"
             sx={{ fontSize: { xs: "1.5rem", md: "2rem" } }}
           >
-            Haldiram's
+            {userDetail.name}
           </Typography>
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Box
@@ -99,19 +99,19 @@ export default function Starshop() {
               }}
             >
               <StarIcon sx={{ color: "white", mr: 0.5 }} />
-              4.0
+              {userDetail.rating}
             </Box>
             <Typography variant="body2" sx={{ marginLeft: 1 }}>
-              14.9K Delivery Ratings
+              14.9K customer Ratings
             </Typography>
           </Box>
         </Stack>
 
         <Typography sx={{ marginY: 0.5 }}>
-          North Indian, Mithai, South Indian, Fast Food, Street Food, Chinese
+        {userDetail.description}
         </Typography>
         <Typography sx={{ marginBottom: 2, color: "rgb(185 185 185)" }}>
-          D Mall, Rohini, New Delhi
+        {userDetail.city}, {userDetail.state}
         </Typography>
 
         <Typography sx={{ marginBottom: 2, color: "rgb(186 186 186)" }}>

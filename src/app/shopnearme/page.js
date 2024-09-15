@@ -7,7 +7,7 @@ import MainCard from '@/components/mainpage/MainCard';
 import LandingTypeshow from '@/components/homepage/LandingTypeshow';
 import CarouselSection from '@/components/mainpage/CarouselSection';
 
-const shopenearme = ({ searchParams }) => {
+const shopnearme = ({ searchParams }) => {
   const [userDetail, setUserDetail] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   const location = searchParams.location;
@@ -74,4 +74,4 @@ const shopenearme = ({ searchParams }) => {
   );
 };
 
-export default shopenearme;
+export default shopnearme;

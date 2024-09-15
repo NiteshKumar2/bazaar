@@ -27,13 +27,12 @@ import ShareIcon from "@mui/icons-material/Share";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ProductCard from "./ProductCard";
 
-function Overview() {
+function Overview({productDetail}) {
   // Set default state so that product details are displayed initially
   const [showAbout, setShowAbout] = useState(true);
   const [productClicked, setProductClicked] = useState(true);
   const [overviewClicked, setOverviewClicked] = useState(false);
   const [reviewsClicked, setReviewsClicked] = useState(false);
-  const [productDetail, setProductDetail] = useState([]);
 
   const handleProductClick = () => {
     setShowAbout(true);

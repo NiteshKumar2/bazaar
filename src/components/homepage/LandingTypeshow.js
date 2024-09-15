@@ -35,7 +35,7 @@ export default function LandingTypeshow() {
 
   // Handle city button click to navigate to the next page
   const handleCityClick = (city) => {
-    router.push(`/shopenearme?location=${city}`);
+    router.push(`/shopnearme?location=${city}`);
   };
 
   return (
@@ -75,9 +75,9 @@ export default function LandingTypeshow() {
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
-          <Link href={`/shopenearme?query=vintage`}>Vintage </Link>
-            <Link href={`/shopenearme?query=floral`}>Floral Print Dresses </Link>  
-            <Link href={`/shopenearme?query=sporty`}>Sporty </Link> Casual Maxi Dresses Boho Chic Outfits Elegant
+          <Link href={`/shopnearme?query=vintage`}>Vintage </Link>
+            <Link href={`/shopnearme?query=floral`}>Floral Print Dresses </Link>  
+            <Link href={`/shopnearme?query=sporty`}>Sporty </Link> Casual Maxi Dresses Boho Chic Outfits Elegant
             Evening Gowns Classic Midi Dresses Street Style Fashion Comfortable
             Loungewear Party Cocktail Dresses Retro Dresses 
             Athleisure Wear

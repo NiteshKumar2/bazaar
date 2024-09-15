@@ -44,7 +44,7 @@ function CardItem({ card }) {
     <Card className={classes.card}>
       <CardMedia
         component="img"
-        alt={card.name}
+        alt={"No Image"}
         height="190"
         image={card.image}
       />
@@ -61,15 +61,16 @@ function CardItem({ card }) {
             variant="body2"
             sx={{ color: "red", fontSize: "0.8rem" }}
           >
-            {card.name}
+            {card.type}
           </Typography>
-          <Rating
-            name="read-only"
-            value={4.2}
-            precision={0.1}
-            readOnly
-            size="small"
-          />
+        
+          <Typography
+            gutterBottom
+            variant="body2"
+            sx={{ color: "red", fontSize: "0.8rem" }}
+          >
+            {card.gender}
+          </Typography>
         </Box>
         <Box
           sx={{
@@ -86,7 +87,7 @@ function CardItem({ card }) {
               fontSize: "0.8rem",
             }}
           >
-            {card.description}
+            {card.subtype}
           </Typography>
           <Typography
             variant="body2"
@@ -95,7 +96,7 @@ function CardItem({ card }) {
               fontSize: "0.8rem",
             }}
           >
-            {card.rating}
+            {card.stockstatus}
           </Typography>
         </Box>
         <CardActions className={classes.cardActions}>
@@ -108,6 +109,7 @@ function CardItem({ card }) {
             }}
           >
             <Button size="small">{card.button}</Button>
+            
             <Typography
               variant="body2"
               sx={{
@@ -115,7 +117,7 @@ function CardItem({ card }) {
                 fontSize: "0.8rem",
               }}
             >
-              {card.city}
+              {card.discount}
             </Typography>
           </Box>
         </CardActions>
@@ -130,8 +132,7 @@ function ProductCard({ productDetail }) {
   return (
     <Box>
 
-      <Container sx={{ padding: 0 }}>
-        <Link href="/shop_with_us" style={{ textDecoration: "none" }}>
+      <Container sx={{ padding: 0 ,marginBottom:10}}>
           <Box
             sx={{
               display: "flex",
@@ -156,7 +157,6 @@ function ProductCard({ productDetail }) {
               </Box>
             ))}
           </Box>
-        </Link>
       </Container>
     </Box>
   );

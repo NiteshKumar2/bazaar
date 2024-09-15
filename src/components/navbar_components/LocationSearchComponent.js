@@ -38,7 +38,7 @@ export default function LocationSearchComponent() {
         event.preventDefault();
         if (selectedLocation) {
             toast.success(`Selected Location: ${selectedLocation}`);
-            router.push(`/shopenearme?location=${selectedLocation}`);
+            router.push(`/shopnearme?location=${selectedLocation}`);
             setSelectedLocation(null); // Clear selection after search
         } else {
             toast.error("Please select a location.");
@@ -49,7 +49,7 @@ export default function LocationSearchComponent() {
         event.preventDefault();
         if (query) {
             toast.success(`Selected query: ${query}`);
-            router.push(`/shopenearme?query=${query}`);
+            router.push(`/shopnearme?query=${query}`);
             setQuery(''); // Clear query after search
         } else {
             toast.error("Please enter a query.");

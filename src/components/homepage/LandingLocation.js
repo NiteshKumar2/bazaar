@@ -30,7 +30,7 @@ function LandingLocation() {
 
   // Handle city button click to navigate to the next page
   const handleCityClick = (city) => {
-    router.push(`/shopenearme?location=${city}`);
+    router.push(`/shopnearme?location=${city}`);
   };
 
   return (

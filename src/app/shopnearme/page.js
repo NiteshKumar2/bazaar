@@ -1,75 +1,64 @@
 "use client";
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { toast } from 'react-hot-toast';  // Importing toast for notifications
-import FilterSection from '@/components/mainpage/FilterSection';
-import MainCard from '@/components/mainpage/MainCard';
-import LandingTypeshow from '@/components/homepage/LandingTypeshow';
-import CarouselSection from '@/components/mainpage/CarouselSection';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { toast } from "react-hot-toast"; // Importing toast for notifications
+import FilterSection from "@/components/mainpage/FilterSection";
+import MainCard from "@/components/mainpage/MainCard";
+import LandingTypeshow from "@/components/homepage/LandingTypeshow";
+import CarouselSection from "@/components/mainpage/CarouselSection";
+import Box from "@mui/material/Box";
+import LinearProgress from "@mui/material/LinearProgress"; // Importing LinearProgress for loading indicator
 
 const shopnearme = ({ searchParams }) => {
   const [userDetail, setUserDetail] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
-  const location = searchParams.location;
-  const gender = searchParams.gender;
-  const query = searchParams.query;
+  const { location, gender, query } = searchParams;
 
-  // Fetch user details by location when the component mounts or when location changes
   useEffect(() => {
     const fetchUserDetails = async () => {
-      if (location) {
-        setIsFetching(true); // Set fetching state to true
-        try {
-          const response = await axios.get(`/api/search/location?location=${location}`);
-          setUserDetail(response.data.data || []); // Set the user details in state, ensuring it's an array
+      setIsFetching(true); // Set fetching state to true
+
+      try {
+        let response;
+
+        if (location) {
+          response = await axios.get(
+            `/api/search/location?location=${location}`
+          );
           toast.success(`Fetched user details for location: ${location}`);
-        } catch (error) {
-          console.error("Error fetching user details:", error.message);
-          toast.error("Error fetching user details: " + error.message);
-        } finally {
-          setIsFetching(false); // Set fetching state to false after the request
+        } else if (gender) {
+          response = await axios.get(`/api/search/usertype?gender=${gender}`);
+          toast.success(`Fetched user details for gender: ${gender}`);
+        } else if (query) {
+          response = await axios.get(`/api/search/searchquery?query=${query}`);
+          toast.success(`Fetched user details for query: ${query}`);
         }
-      }
-      if(gender){
-        setIsFetching(true); // Set fetching state to true
-        try {
-          const response = await axios.get(`/api/search/usertype?gender=${gender}`);
-          setUserDetail(response.data.data || []); // Set the user details in state, ensuring it's an array
-          toast.success(`Fetched user details for location: ${gender}`);
-        } catch (error) {
-          console.error("Error fetching user details:", error.message);
-          toast.error("Error fetching user details: " + error.message);
-        } finally {
-          setIsFetching(false); // Set fetching state to false after the request
-        }
-      }
-      if(query){
-        setIsFetching(true); // Set fetching state to true
-        try {
-          const response = await axios.get(`/api/search/searchquery?query=${query}`);
-          setUserDetail(response.data.data || []); // Set the user details in state, ensuring it's an array
-          toast.success(`Fetched user details for location: ${gender}`);
-        } catch (error) {
-          console.error("Error fetching user details:", error.message);
-          toast.error("Error fetching user details: " + error.message);
-        } finally {
-          setIsFetching(false); // Set fetching state to false after the request
-        }
+
+        setUserDetail(response?.data?.data || []); // Set the user details in state
+      } catch (error) {
+        console.error("Error fetching user details:", error.message);
+        toast.error("Error fetching user details: " + error.message);
+      } finally {
+        setIsFetching(false); // Set fetching state to false after the request
       }
     };
 
     fetchUserDetails(); // Call the function
-  }, [location,gender,query]); // Dependency array to run effect when location changes
+  }, [location, gender, query]); // Dependency array to run effect when location, gender, or query changes
 
   return (
     <>
-      {isFetching && <p>Loading user details...</p>} {/* Show loading message */}
+      {/* Show loading indicator when fetching data */}
+      {isFetching && (
+        <Box sx={{ width: "100%", marginBottom: 12 }}>
+          <LinearProgress />
+        </Box>
+      )}
+      {/* Render sections */}
       <FilterSection location={location} />
       <CarouselSection />
-      <MainCard userDetail={userDetail} />
+      <MainCard userDetail={userDetail} isFetching={isFetching} />
       <LandingTypeshow />
-
-
     </>
   );
 };

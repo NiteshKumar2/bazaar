@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import * as React from "react";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
@@ -7,14 +7,6 @@ import { KeyboardArrowDown } from "@mui/icons-material";
 import SearchIcon from "@mui/icons-material/Search";
 
 function LandingBanner() {
-  const top100Location = [
-    { city: "jind", state: "haryana" },
-    { city: "rohtak", state: "haryana" },
-    { city: "panipat", state: "haryana" },
-    { city: "sonipat", state: "haryana" },
-    { city: "karnal", state: "haryana" },
-  ];
-
   return (
     <Paper
       sx={{
@@ -66,7 +58,7 @@ function LandingBanner() {
               md: "3rem",
               lg: "3.5rem",
             },
-            
+
             margin: 0,
             padding: 0,
           }}
@@ -82,35 +74,32 @@ function LandingBanner() {
             fontSize: { xs: "1rem", sm: "1.25rem", md: "1.5rem" },
             margin: 2.5,
             padding: 0,
-            color:"white"
+            color: "white",
           }}
         >
-          Big Bazaar offers a variety of dresses near you, ensuring you find the perfect style for any occasion
+          Big Bazaar offers a variety of dresses near you, ensuring you find the
+          perfect style for any occasion
         </Typography>
-        
 
-            <Paper
-              component="form"
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                width: "100%",
-                maxWidth: { xs: 250, sm: 450, md: 450 },
-              }}
-            >
-              <InputBase
-                sx={{ ml: 1, flex: 1, }}
-                placeholder="Search"
-                inputProps={{ "aria-label": "Search" }}
-              />
-              <Button type="submit" sx={{ p: "10px" }} aria-label="search">
-                <SearchIcon />
-              </Button>
-            </Paper>
-        
-
-        </Box>
-      
+        <Paper
+          component="form"
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            width: "100%",
+            maxWidth: { xs: 250, sm: 450, md: 450 },
+          }}
+        >
+          <InputBase
+            sx={{ ml: 1, flex: 1 }}
+            placeholder="Search"
+            inputProps={{ "aria-label": "Search" }}
+          />
+          <Button type="submit" sx={{ p: "10px" }} aria-label="search">
+            <SearchIcon />
+          </Button>
+        </Paper>
+      </Box>
     </Paper>
   );
 }

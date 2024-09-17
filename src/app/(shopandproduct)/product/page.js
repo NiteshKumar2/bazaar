@@ -53,10 +53,15 @@ function Product() {
 
   const fetchProductDetails = async (email) => {
     try {
-      const response = await axios.get("/api/product/userproduct", { params: { email } });
+      const response = await axios.get("/api/product/userproduct", {
+        params: { email },
+      });
       setProducts(response.data);
     } catch (error) {
-      toast.error(error.response?.data?.error || "An error occurred while fetching products.");
+      toast.error(
+        error.response?.data?.error ||
+        "An error occurred while fetching products."
+      );
     } finally {
       setIsFetching(false);
     }
@@ -73,7 +78,10 @@ function Product() {
       toast.success(response.data.message);
       fetchProductDetails(formData.email);
     } catch (error) {
-      toast.error(error.response?.data?.error || "An error occurred while creating the product.");
+      toast.error(
+        error.response?.data?.error ||
+        "An error occurred while creating the product."
+      );
     }
   };
 
@@ -86,20 +94,56 @@ function Product() {
   const handleUpdateSubmit = async (e, index) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`/api/product/userproduct?id=${products[index]._id}`, products[index]);
+      const response = await axios.put(
+        `/api/product/userproduct?id=${products[index]._id}`,
+        products[index]
+      );
       toast.success(response.data.message);
     } catch (error) {
-      toast.error(error.response?.data?.error || "An error occurred while updating the product.");
+      toast.error(
+        error.response?.data?.error ||
+        "An error occurred while updating the product."
+      );
     }
   };
 
   const handleDelete = async (productId) => {
     try {
-      const response = await axios.delete("/api/product/userproduct", { params: { id: productId } });
+      const response = await axios.delete("/api/product/userproduct", {
+        params: { id: productId },
+      });
       toast.success(response.data.message);
       setProducts(products.filter((product) => product._id !== productId));
     } catch (error) {
-      toast.error(error.response?.data?.error || "An error occurred while deleting the product.");
+      toast.error(
+        error.response?.data?.error ||
+        "An error occurred while deleting the product."
+      );
+    }
+  };
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          image: reader.result, // Store base64 image in formData
+        }));
+      };
+      reader.readAsDataURL(file); // Convert image to base64
+    }
+  };
+  const handleUpdateImageChange = (e, index) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const updatedProducts = [...products];
+        updatedProducts[index].image = reader.result; // Store base64 image in the product
+        setProducts(updatedProducts);
+      };
+      reader.readAsDataURL(file); // Convert image to base64
     }
   };
 
@@ -117,7 +161,9 @@ function Product() {
       }}
     >
       {/* Left Container */}
-      <Box sx={{ flex: 1, p: 2, marginLeft: { xs: 4, sm: 25, md: 10, lg: 50 } }}>
+      <Box
+        sx={{ flex: 1, p: 2, marginLeft: { xs: 4, sm: 25, md: 10, lg: 50 } }}
+      >
         <Box
           sx={{
             position: "relative",
@@ -149,9 +195,13 @@ function Product() {
             Shop name, address, contact no., owner details
           </Typography>
           <Link href="/updateshop" underline="none">
-            <Typography variant="body1" sx={{ cursor: "pointer", color: "text.primary", mt: 2, }}>
+            <Typography
+              variant="body1"
+              sx={{ cursor: "pointer", color: "text.primary", mt: 2 }}
+            >
               2. Update your shop details
-            </Typography></Link>
+            </Typography>
+          </Link>
           <Typography variant="body2" color="textSecondary">
             Establishment & cuisine type, opening hours
           </Typography>
@@ -177,7 +227,9 @@ function Product() {
 
       {/* Right Container */}
       <Box sx={{ flex: 2, p: 2, ml: { xs: 0, sm: 2, md: -5, lg: -10 } }}>
-        <Typography variant="h6" sx={{ mb: 2 }}>Product Information</Typography>
+        <Typography variant="h6" sx={{ mb: 2 }}>
+          Product Information
+        </Typography>
 
         {/* Add New Product Section */}
         <Box
@@ -189,7 +241,13 @@ function Product() {
             width: { xs: "100%", sm: 300, md: 500 },
           }}
         >
-          <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
             <Typography variant="h6">Add New Product</Typography>
             <IconButton onClick={() => setOpenDetails(!openDetails)}>
               {openDetails ? <ExpandLessIcon /> : <ExpandMoreIcon />}
@@ -198,18 +256,107 @@ function Product() {
           <Collapse in={openDetails}>
             <Divider sx={{ my: 2 }} />
             <Box sx={{ mt: 2 }}>
-              {["email", "type", "size", "prizerange", "color", "image", "subtype", "gender", "discount", "stockstatus"].map((field) => (
-                <TextField
-                  key={field}
-                  name={field}
-                  label={field.charAt(0).toUpperCase() + field.slice(1)}
-                  sx={{ width: { xs: "45%", sm: "30%", md: "30%" }, margin: 0.7 }}
-                  margin="normal"
-                  value={formData[field]}
-                  onChange={handleChange}
-                  InputProps={{ readOnly: field === "email" }} // Make email non-editable
-                />
-              ))}
+              {[
+                "email",
+                "type",
+                "size",
+                "prizerange",
+                "color",
+                "subtype",
+                "gender",
+                "discount",
+                "stockstatus",
+                "image",
+              ].map((field) => {
+                if (field === "image") {
+                  return (
+                    <Box
+                      key={field}
+                      sx={{
+                        width: { xs: "45%", sm: "30%", md: "30%" },
+                        margin: 0.7,
+                      }}
+                    >
+                      <input
+                        accept="image/*"
+                        type="file"
+                        onChange={(e) => handleImageChange(e)} // Handle file change for image upload
+                      />
+                      {formData.image && (
+                        <img
+                          src={formData.image}
+                          alt="Selected"
+                          style={{ width: 100, height: 100, marginTop: 10 }}
+                        />
+                      )}
+                    </Box>
+                  );
+                }
+                if (field === "stockstatus") {
+                  return (
+                    <TextField
+                      key={field}
+                      name={field}
+                      label={"(stock, no-stock"}
+                      sx={{
+                        width: { xs: "45%", sm: "30%", md: "30%" },
+                        margin: 0.7,
+                      }}
+                      margin="normal"
+                      value={formData[field]}
+                      onChange={handleChange}
+                    />
+                  );
+                }
+                if (field === "gender") {
+                  return (
+                    <TextField
+                      key={field}
+                      name={field}
+                      label={"gender(m,f,c)"}
+                      sx={{
+                        width: { xs: "45%", sm: "30%", md: "30%" },
+                        margin: 0.7,
+                      }}
+                      margin="normal"
+                      value={formData[field]}
+                      onChange={handleChange}
+                    />
+                  );
+                }
+                if (field === "size") {
+                  return (
+                    <TextField
+                      key={field}
+                      name={field}
+                      label={"size(S,M,L,XL,XXL)"}
+                      sx={{
+                        width: { xs: "45%", sm: "30%", md: "30%" },
+                        margin: 0.7,
+                      }}
+                      margin="normal"
+                      value={formData[field]}
+                      onChange={handleChange}
+                    />
+                  );
+                } else {
+                  return (
+                    <TextField
+                      key={field}
+                      name={field}
+                      label={field.charAt(0).toUpperCase() + field.slice(1)}
+                      sx={{
+                        width: { xs: "45%", sm: "30%", md: "30%" },
+                        margin: 0.7,
+                      }}
+                      margin="normal"
+                      value={formData[field]}
+                      onChange={handleChange}
+                      InputProps={{ readOnly: field === "email" }} // Make email non-editable
+                    />
+                  );
+                }
+              })}
               <Button
                 variant="contained"
                 sx={{ width: { xs: "35%", sm: "20%", md: "20%" }, margin: 1.8 }}
@@ -231,9 +378,17 @@ function Product() {
             width: { xs: "100%", sm: 300, md: 500 },
           }}
         >
-          <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
             <Typography variant="h6">Update Product Details</Typography>
-            <IconButton onClick={() => setOpenUpdateDetails(!openUpdateDetails)}>
+            <IconButton
+              onClick={() => setOpenUpdateDetails(!openUpdateDetails)}
+            >
               {openUpdateDetails ? <ExpandLessIcon /> : <ExpandMoreIcon />}
             </IconButton>
           </Box>
@@ -241,27 +396,74 @@ function Product() {
             <Divider sx={{ my: 2 }} />
             {products.map((product, index) => (
               <Box sx={{ mt: 2 }} key={product._id}>
-                {["email", "type", "size", "prizerange", "color", "image", "subtype", "gender", "discount", "stockstatus"].map((field) => (
-                  <TextField
-                    key={field}
-                    name={field}
-                    label={field.charAt(0).toUpperCase() + field.slice(1)}
-                    sx={{ width: { xs: "45%", sm: "30%", md: "30%" }, margin: 0.7 }}
-                    margin="normal"
-                    value={product[field]}
-                    onChange={(e) => handleUpdateChange(e, index)}
-                  />
-                ))}
+                {[
+                  "email",
+                  "type",
+                  "size",
+                  "prizerange",
+                  "color",
+                  "subtype",
+                  "gender",
+                  "discount",
+                  "stockstatus",
+                  "image",
+                ].map((field) => {
+                  if (field === "image") {
+                    return (
+                      <Box
+                        key={field}
+                        sx={{
+                          width: { xs: "45%", sm: "30%", md: "30%" },
+                          margin: 0.7,
+                        }}
+                      >
+                        <input
+                          accept="image/*"
+                          type="file"
+                          onChange={(e) => handleUpdateImageChange(e, index)} // Handle file change for image update
+                        />
+                        {product.image && (
+                          <img
+                            src={product.image}
+                            alt="Selected"
+                            style={{ width: 100, height: 100, marginTop: 10 }}
+                          />
+                        )}
+                      </Box>
+                    );
+                  } else {
+                    return (
+                      <TextField
+                        key={field}
+                        name={field}
+                        label={field.charAt(0).toUpperCase() + field.slice(1)}
+                        sx={{
+                          width: { xs: "45%", sm: "30%", md: "30%" },
+                          margin: 0.7,
+                        }}
+                        margin="normal"
+                        value={product[field]}
+                        onChange={(e) => handleUpdateChange(e, index)}
+                      />
+                    );
+                  }
+                })}
                 <Button
                   variant="contained"
-                  sx={{ width: { xs: "35%", sm: "18%", md: "18%" }, margin: 1.8 }}
+                  sx={{
+                    width: { xs: "35%", sm: "18%", md: "18%" },
+                    margin: 1.8,
+                  }}
                   onClick={(e) => handleUpdateSubmit(e, index)}
                 >
                   Update
                 </Button>
                 <Button
                   variant="contained"
-                  sx={{ width: { xs: "35%", sm: "18%", md: "18%" }, margin: 1.8 }}
+                  sx={{
+                    width: { xs: "35%", sm: "18%", md: "18%" },
+                    margin: 1.8,
+                  }}
                   color="error"
                   onClick={() => handleDelete(product._id)}
                 >

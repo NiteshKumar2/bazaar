@@ -11,6 +11,7 @@ import {
   Container,
   Link,
   Rating,
+  Skeleton,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
@@ -38,17 +39,28 @@ const useStyles = makeStyles({
   },
 });
 
-function CardItem({ card }) {
+function CardItem({ card, isLoading }) {
   const classes = useStyles();
+
   return (
     <Card className={classes.card}>
-      <Link href={`/shopnearme/shop?email=${card.email}`}  style={{ textDecoration: "none" }}>
-      <CardMedia
-        component="img"
-        alt={card.name}
-        height="190"
-        image={card.image}
-      />
+      {/* Conditionally render skeletons while loading */}
+      {isLoading ? (
+        <Skeleton variant="rectangular" height={190} />
+      ) : (
+        <Link
+          href={`/shopnearme/shop?email=${card.email}`}
+          style={{ textDecoration: "none" }}
+        >
+          <CardMedia
+            component="img"
+            alt={card.name}
+            height="190"
+            image={card.image}
+          />
+        </Link>
+      )}
+
       <CardContent className={classes.cardContent}>
         <Box
           sx={{
@@ -57,21 +69,30 @@ function CardItem({ card }) {
             justifyContent: "space-between",
           }}
         >
-          <Typography
-            gutterBottom
-            variant="body2"
-            sx={{ color: "red", fontSize: "0.8rem" }}
-          >
-            {card.name}
-          </Typography>
-          <Rating
-            name="read-only"
-            value={4.2}
-            precision={0.1}
-            readOnly
-            size="small"
-          />
+          {isLoading ? (
+            <Skeleton width="50%" />
+          ) : (
+            <Typography
+              gutterBottom
+              variant="body2"
+              sx={{ color: "red", fontSize: "0.8rem" }}
+            >
+              {card.name}
+            </Typography>
+          )}
+          {isLoading ? (
+            <Skeleton width={30} height={20} />
+          ) : (
+            <Rating
+              name="read-only"
+              value={card.rating}
+              precision={0.1}
+              readOnly
+              size="small"
+            />
+          )}
         </Box>
+
         <Box
           sx={{
             display: "flex",
@@ -80,25 +101,35 @@ function CardItem({ card }) {
             marginBottom: 1,
           }}
         >
-          <Typography
-            variant="body2"
-            sx={{
-              color: "black",
-              fontSize: "0.8rem",
-            }}
-          >
-            {card.description}
-          </Typography>
-          <Typography
-            variant="body2"
-            sx={{
-              color: "black",
-              fontSize: "0.8rem",
-            }}
-          >
-            {card.rating}
-          </Typography>
+          {isLoading ? (
+            <Skeleton width="40%" />
+          ) : (
+            <Typography
+              variant="body2"
+              sx={{
+                color: "black",
+                fontSize: "0.8rem",
+              }}
+            >
+              {card.description}
+            </Typography>
+          )}
+
+          {isLoading ? (
+            <Skeleton width="20%" />
+          ) : (
+            <Typography
+              variant="body2"
+              sx={{
+                color: "black",
+                fontSize: "0.8rem",
+              }}
+            >
+              {card.rating}
+            </Typography>
+          )}
         </Box>
+
         <CardActions className={classes.cardActions}>
           <Box
             sx={{
@@ -108,25 +139,32 @@ function CardItem({ card }) {
               width: "100%",
             }}
           >
-            <Button size="small">{card.button}</Button>
-            <Typography
-              variant="body2"
-              sx={{
-                color: "black",
-                fontSize: "0.8rem",
-              }}
-            >
-              {card.city}
-            </Typography>
+            {isLoading ? (
+              <Skeleton width={50} height={20} />
+            ) : (
+              <Button size="small">{card.button}</Button>
+            )}
+            {isLoading ? (
+              <Skeleton width="30%" />
+            ) : (
+              <Typography
+                variant="body2"
+                sx={{
+                  color: "black",
+                  fontSize: "0.8rem",
+                }}
+              >
+                {card.city}
+              </Typography>
+            )}
           </Box>
         </CardActions>
       </CardContent>
-      </Link>
     </Card>
   );
 }
 
-function MainCard({ userDetail }) {
+function MainCard({ userDetail, isFetching }) {
   const classes = useStyles();
 
   return (
@@ -138,17 +176,18 @@ function MainCard({ userDetail }) {
       </Box>
 
       <Container sx={{ padding: 0 }}>
-          <Box
-            sx={{
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "flex-start",
-              gap: 2,
-            }}
-          >
-            {userDetail.map((card) => (
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "flex-start",
+            gap: 2,
+          }}
+        >
+          {(isFetching ? Array.from(new Array(6)) : userDetail).map(
+            (card, index) => (
               <Box
-                key={card._id}
+                key={index}
                 sx={{
                   flexBasis: {
                     xs: "100%",
@@ -158,10 +197,12 @@ function MainCard({ userDetail }) {
                   boxSizing: "border-box",
                 }}
               >
-                <CardItem card={card} />
+                {/* Pass isLoading prop to CardItem to show skeleton */}
+                <CardItem card={card || {}} isLoading={isFetching} />
               </Box>
-            ))}
-          </Box>
+            )
+          )}
+        </Box>
       </Container>
     </Box>
   );

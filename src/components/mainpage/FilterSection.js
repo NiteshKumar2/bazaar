@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import React, { useState } from "react";
 import {
@@ -15,7 +15,7 @@ import {
   Radio,
   Divider,
   TextField,
-  Typography
+  Typography,
 } from "@mui/material";
 import TuneIcon from "@mui/icons-material/Tune";
 
@@ -41,8 +41,19 @@ function FilterSection({ location }) {
       case "Sort by":
         return (
           <RadioGroup>
-            {["Popularity", "Rating: High to Low", "Delivery Time", "Cost: Low to High", "Cost: High to Low"].map((option) => (
-              <FormControlLabel key={option} value={option} control={<Radio />} label={option} />
+            {[
+              "Popularity",
+              "Rating: High to Low",
+              "Delivery Time",
+              "Cost: Low to High",
+              "Cost: High to Low",
+            ].map((option) => (
+              <FormControlLabel
+                key={option}
+                value={option}
+                control={<Radio />}
+                label={option}
+              />
             ))}
           </RadioGroup>
         );
@@ -67,7 +78,12 @@ function FilterSection({ location }) {
         return (
           <RadioGroup>
             {["Any", "3.5", "4.0", "4.5", "5.0"].map((rating) => (
-              <FormControlLabel key={rating} value={rating} control={<Radio />} label={rating} />
+              <FormControlLabel
+                key={rating}
+                value={rating}
+                control={<Radio />}
+                label={rating}
+              />
             ))}
           </RadioGroup>
         );
@@ -80,7 +96,6 @@ function FilterSection({ location }) {
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", mt: "-1px", ml: 5 }}>
-
       <Box
         sx={{
           marginTop: { xs: 10, md: 15, lg: 15 },
@@ -95,10 +110,11 @@ function FilterSection({ location }) {
             marginBottom: { xs: 0.5, sm: 1, md: 1.5 }, // Responsive margin bottom
           }}
         >
-          
-          Home / India / {location }
+          Home / India / {location}
         </Typography>
       </Box>
+      {/* filter */}
+      {/*
       <Box
         sx={{
           display: "flex",
@@ -123,8 +139,8 @@ function FilterSection({ location }) {
         >
           Filters
         </Button>
-      </Box>
-
+      </Box>*/}
+      {/*
       <Dialog open={openFilters} onClose={handleCloseFilters}>
         <DialogTitle>Filters</DialogTitle>
         <Divider />
@@ -151,7 +167,7 @@ function FilterSection({ location }) {
             Apply
           </Button>
         </DialogActions>
-      </Dialog>
+      </Dialog>*/}
     </Box>
   );
 }

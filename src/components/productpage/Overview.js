@@ -27,7 +27,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ProductCard from "./ProductCard";
 
-function Overview({productDetail}) {
+function Overview({ productDetail, userDetail }) {
   // Set default state so that product details are displayed initially
   const [showAbout, setShowAbout] = useState(true);
   const [productClicked, setProductClicked] = useState(true);
@@ -144,34 +144,34 @@ function Overview({productDetail}) {
               {overviewClicked && (
                 <>
                   <Typography variant="h5" sx={{ marginBottom: 2 }}>
-                    About this place
+                    About this shop
                   </Typography>
                   <Box>
                     <Typography variant="h5" sx={{ marginBottom: 2 }}>
-                      Cuisines
+                      Types of Dress
                     </Typography>
                     <Stack direction="row" spacing={2} sx={{ marginBottom: 2 }}>
-                      <Button variant="outlined">Suit</Button>
-                      <Button variant="outlined">Saree</Button>
-                      <Button variant="outlined">Kids cloth</Button>
+                      <Button variant="outlined">{userDetail.ptype[0]}</Button>
+                      <Button variant="outlined">{userDetail.ptype[1]}</Button>
+                      <Button variant="outlined">{userDetail.ptype[2]}</Button>
                     </Stack>
                   </Box>
 
                   <Box>
                     <Typography variant="h5" sx={{ marginBottom: 2 }}>
-                      Popular Dresses
+                      location
                     </Typography>
                     <Typography variant="body2" sx={{ marginBottom: 2 }}>
-                      Lehengas, Latest design suits, Pants, Inner wear
+                      {userDetail.location}, near: {userDetail.landmark}
                     </Typography>
                   </Box>
 
                   <Box>
                     <Typography variant="h5" sx={{ marginBottom: 2 }}>
-                      More Info
+                      Phone No.
                     </Typography>
                     <Typography variant="body2" sx={{ marginBottom: 7 }}>
-                      Breakfast, Takeaway Available, Wifi
+                      {userDetail.phone}
                     </Typography>
                   </Box>
                 </>
@@ -243,7 +243,7 @@ function Overview({productDetail}) {
 
                   {/* Reviews */}
                   <Box sx={{ padding: 2 }}>
-                    {[1, 2, 3].map((review, index) => (
+                    {[1].map((review, index) => (
                       <Box key={index} sx={{ paddingBottom: 4 }}>
                         <Stack
                           direction="row"
@@ -254,7 +254,7 @@ function Overview({productDetail}) {
                             alt="User Name"
                             src="https://via.placeholder.com/150"
                           />
-                          <Typography variant="h6">User Name</Typography>
+                          <Typography variant="h6">User </Typography>
                         </Stack>
 
                         <Box sx={{ marginY: 1 }}>
@@ -262,7 +262,7 @@ function Overview({productDetail}) {
                         </Box>
 
                         <Typography variant="body1" sx={{ marginBottom: 2 }}>
-                          This is a great product! I'm very happy with it.
+                          {userDetail.comment}
                         </Typography>
 
                         <Stack

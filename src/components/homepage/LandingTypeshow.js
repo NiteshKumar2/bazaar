@@ -41,99 +41,107 @@ export default function LandingTypeshow() {
   return (
     <div
       style={{
-        padding: "0 16px", // Default padding
-        paddingTop: "24px",
-        paddingBottom: "24px",
-        margin: "0 auto", // Center alignment
-        marginTop: "30px",
-        marginBottom: "30px",
-        maxWidth: "800px", // Max width for content
+        backgroundColor: "rgb(255 251 247)",
+        paddingTop: 50,
+        paddingBottom: 50,
       }}
     >
-      <Typography
-        variant="h5"
-        sx={{
-          marginBottom: "23px", // Margin below heading
-          textAlign: "center", // Centered heading
+      <div
+        style={{
+          padding: "0 16px", // Default padding
+          paddingTop: "24px",
+          paddingBottom: "24px",
+          margin: "0 auto",
+          maxWidth: "800px", // Max width for content
         }}
       >
-        Explore options near you
-      </Typography>
-
-      <Accordion
-        sx={{
-          marginBottom: { xs: "12px", sm: "16px" }, // Margin below each accordion
-          padding: { xs: "8px", sm: "12px" }, // Padding inside each accordion
-        }}
-      >
-        <AccordionSummary
-          expandIcon={<ArrowDropDownIcon />}
-          aria-controls="panel2-content"
-          id="panel2-header"
+        <Typography
+          variant="h4"
+          sx={{
+            marginBottom: "23px", // Margin below heading
+            textAlign: "center", // Centered heading
+          }}
         >
-          <Typography>Popular dress type near me</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-          <Link href={`/shopnearme?query=vintage`}>Vintage </Link>
-            <Link href={`/shopnearme?query=floral`}>Floral Print Dresses </Link>  
-            <Link href={`/shopnearme?query=sporty`}>Sporty </Link> Casual Maxi Dresses Boho Chic Outfits Elegant
-            Evening Gowns Classic Midi Dresses Street Style Fashion Comfortable
-            Loungewear Party Cocktail Dresses Retro Dresses 
-            Athleisure Wear
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
+          Explore options near you
+        </Typography>
 
-      <Accordion
-        sx={{
-          marginBottom: { xs: "12px", sm: "16px" }, // Margin below each accordion
-          padding: { xs: "8px", sm: "12px" }, // Padding inside each accordion
-        }}
-      >
-        <AccordionSummary
-          expandIcon={<ArrowDropDownIcon />}
-          aria-controls="panel2-content"
-          id="panel2-header"
+        <Accordion
+          sx={{
+            marginBottom: { xs: "12px", sm: "16px" }, // Margin below each accordion
+            padding: { xs: "8px", sm: "12px" }, // Padding inside each accordion
+          }}
         >
-          <Typography>Popular shop near me</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            Fashion Boutique Trendy Threads Style Hub Urban Outfitters Chic
-            Avenue Designer Haven Luxury Attire Vintage Vault Boutique Bliss
-            Urban Chic
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
+          <AccordionSummary
+            expandIcon={<ArrowDropDownIcon />}
+            aria-controls="panel2-content"
+            id="panel2-header"
+          >
+            <Typography>Popular dress type near me</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+              <Link href={`/shopnearme?query=vintage`}>Vintage </Link>
+              <Link href={`/shopnearme?query=floral`}>
+                Floral Print Dresses{" "}
+              </Link>
+              <Link href={`/shopnearme?query=sporty`}>Sporty </Link> Casual Maxi
+              Dresses Boho Chic Outfits Elegant Evening Gowns Classic Midi
+              Dresses Street Style Fashion Comfortable Loungewear Party Cocktail
+              Dresses Retro Dresses Athleisure Wear
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
 
-      <Accordion
-        sx={{
-          marginBottom: { xs: "12px", sm: "16px" }, // Margin below each accordion
-          padding: { xs: "8px", sm: "12px" }, // Padding inside each accordion
-        }}
-      >
-        <AccordionSummary
-          expandIcon={<ArrowDropDownIcon />}
-          aria-controls="panel2-content"
-          id="panel2-header"
+        <Accordion
+          sx={{
+            marginBottom: { xs: "12px", sm: "16px" }, // Margin below each accordion
+            padding: { xs: "8px", sm: "12px" }, // Padding inside each accordion
+          }}
         >
-          <Typography>Cities we show</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Typography>
-            {cityData.map((data, index) => (
-              <Button
-                key={index} // Ensure each Button has a unique key
-                variant="text"
-                onClick={() => handleCityClick(data)} // Handle city click
-              >
-                <Typography>{data}</Typography>
-              </Button>
-            ))}
-          </Typography>
-        </AccordionDetails>
-      </Accordion>
+          <AccordionSummary
+            expandIcon={<ArrowDropDownIcon />}
+            aria-controls="panel2-content"
+            id="panel2-header"
+          >
+            <Typography>Popular shop near me</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+              Fashion Boutique Trendy Threads Style Hub Urban Outfitters Chic
+              Avenue Designer Haven Luxury Attire Vintage Vault Boutique Bliss
+              Urban Chic
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+
+        <Accordion
+          sx={{
+            marginBottom: { xs: "12px", sm: "16px" }, // Margin below each accordion
+            padding: { xs: "8px", sm: "12px" }, // Padding inside each accordion
+          }}
+        >
+          <AccordionSummary
+            expandIcon={<ArrowDropDownIcon />}
+            aria-controls="panel2-content"
+            id="panel2-header"
+          >
+            <Typography>Cities we show</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Typography>
+              {cityData.map((data, index) => (
+                <Button
+                  key={index} // Ensure each Button has a unique key
+                  variant="text"
+                  onClick={() => handleCityClick(data)} // Handle city click
+                >
+                  <Typography style={{ color: "#646868" }}>{data}</Typography>
+                </Button>
+              ))}
+            </Typography>
+          </AccordionDetails>
+        </Accordion>
+      </div>
     </div>
   );
 }

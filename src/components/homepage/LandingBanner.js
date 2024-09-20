@@ -2,11 +2,34 @@
 import * as React from "react";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import { Button, Box, Autocomplete, InputBase, TextField } from "@mui/material";
-import { KeyboardArrowDown } from "@mui/icons-material";
+import {
+  Button,
+  Box,
+  Autocomplete,
+  InputBase,
+  TextField,
+  CircularProgress,
+} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
+import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 function LandingBanner() {
+  const router = useRouter();
+  const [isFetching, setIsFetching] = React.useState(false);
+  const [query, setQuery] = React.useState("");
+
+  const handleQuerySearch = (event) => {
+    event.preventDefault();
+    if (query) {
+      toast.success(`Selected query: ${query}`);
+      router.push(`/shopnearme?query=${query}`);
+      setQuery(""); // Clear query after search
+    } else {
+      toast.error("Please enter a query.");
+    }
+  };
+
   return (
     <Paper
       sx={{
@@ -25,7 +48,7 @@ function LandingBanner() {
           sm: 570,
           md: 690,
           lg: 690,
-        } // Medium height
+        }, // Medium height
       }}
     >
       {<img style={{ display: "none" }} src={"/shopping1.png"} alt={"image"} />}
@@ -88,6 +111,7 @@ function LandingBanner() {
 
         <Paper
           component="form"
+          onSubmit={handleQuerySearch}
           sx={{
             display: "flex",
             alignItems: "center",
@@ -99,9 +123,16 @@ function LandingBanner() {
             sx={{ ml: 1, flex: 1 }}
             placeholder="Search"
             inputProps={{ "aria-label": "Search" }}
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
           />
-          <Button type="submit" sx={{ p: "10px" }} aria-label="search">
-            <SearchIcon />
+          <Button
+            type="submit"
+            sx={{ p: "10px" }}
+            aria-label="search"
+            disabled={isFetching || !query}
+          >
+            {isFetching ? <CircularProgress size={24} /> : <SearchIcon />}
           </Button>
         </Paper>
       </Box>

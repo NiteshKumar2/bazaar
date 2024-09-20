@@ -53,7 +53,7 @@ export default function Page({ searchParams }) {
     <>
       {/* Show LinearProgress when data is being fetched */}
       {isFetching ? (
-        <Box sx={{ width: "100%", marginTop: 11 }}>
+        <Box sx={{ width: "100%", marginTop: 8 }}>
           <LinearProgress />
         </Box>
       ) : (

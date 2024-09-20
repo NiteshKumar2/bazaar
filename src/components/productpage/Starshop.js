@@ -13,11 +13,11 @@ import ShareIcon from "@mui/icons-material/Share";
 import StarIcon from "@mui/icons-material/Star";
 import Link from "@mui/material/Link";
 
-export default function Starshop({userDetail}) {
+export default function Starshop({ userDetail }) {
   // Common Styles
   const buttonStyles = {
     color: "black",
-    width: '87%',
+    width: "87%",
     fontSize: 12,
   };
 
@@ -32,8 +32,8 @@ export default function Starshop({userDetail}) {
         position: "relative",
         backgroundColor: "white",
         color: "#000",
-        mb: 4,
-        mt: 10,
+        mb: 1,
+        mt: 8,
         padding: { xs: 2, sm: 3, md: 4 },
       }}
     >
@@ -98,20 +98,18 @@ export default function Starshop({userDetail}) {
                 marginLeft: { xs: 0, sm: 60, md: 60 },
               }}
             >
-              <StarIcon sx={{ color: "white", mr: 0.5 }} />
+              <StarIcon sx={{ color: "white" }} />
               {userDetail.rating}
             </Box>
             <Typography variant="body2" sx={{ marginLeft: 1 }}>
-              14.9K customer Ratings
+              Customer Ratings
             </Typography>
           </Box>
         </Stack>
 
-        <Typography sx={{ marginY: 0.5 }}>
-        {userDetail.description}
-        </Typography>
+        <Typography sx={{ marginY: 0.5 }}>{userDetail.description}</Typography>
         <Typography sx={{ marginBottom: 2, color: "rgb(185 185 185)" }}>
-        {userDetail.city}, {userDetail.state}
+          {userDetail.location}, {userDetail.city}
         </Typography>
 
         <Typography sx={{ marginBottom: 2, color: "rgb(186 186 186)" }}>
@@ -120,8 +118,9 @@ export default function Starshop({userDetail}) {
         </Typography>
 
         {/* Buttons */}
+        {/* 
         <Stack direction="row" spacing={0.1}>
-          <Link href="/Home" sx={{ textDecoration: "none" }}>
+          <Link href="/" sx={{ textDecoration: "none" }}>
             <Button
               variant="outlined"
               startIcon={<DirectionsIcon sx={{ color: "red" }} />}
@@ -131,7 +130,7 @@ export default function Starshop({userDetail}) {
               Direction
             </Button>
           </Link>
-          <Link href="/Home" sx={{ textDecoration: "none" }}>
+          <Link href="/" sx={{ textDecoration: "none" }}>
             <Button
               variant="outlined"
               startIcon={<BookmarkIcon sx={{ color: "red" }} />}
@@ -141,7 +140,7 @@ export default function Starshop({userDetail}) {
               Bookmark
             </Button>
           </Link>
-          <Link href="/Home" sx={{ textDecoration: "none" }}>
+          <Link href="/" sx={{ textDecoration: "none" }}>
             <Button
               variant="outlined"
               startIcon={<ShareIcon sx={{ color: "red" }} />}
@@ -151,7 +150,7 @@ export default function Starshop({userDetail}) {
               Share
             </Button>
           </Link>
-        </Stack>
+        </Stack> */}
       </Box>
     </Paper>
   );

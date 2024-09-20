@@ -37,7 +37,7 @@ function LandingLocation() {
     <Box
       sx={{
         paddingX: { xs: 3, sm: 55, md: 55 }, // Padding on the x-axis for all screen sizes
-        paddingY: { xs: 3, sm: 9, md: 11 }, // Vertical padding
+        paddingY: { xs: 15, sm: 15, md: 15 }, // Vertical padding
         marginTop: 6,
         backgroundColor: "rgb(248 248 248)",
       }}
@@ -102,7 +102,6 @@ function LandingLocation() {
                 {data}
                 <br />
                 {"22"}
-                
               </Box>
             </Button>
           </Box>

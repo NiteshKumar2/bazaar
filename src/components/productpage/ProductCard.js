@@ -63,13 +63,13 @@ function CardItem({ card }) {
           >
             {card.type}
           </Typography>
-        
+
           <Typography
             gutterBottom
             variant="body2"
             sx={{ color: "red", fontSize: "0.8rem" }}
           >
-            {card.gender}
+            {card.size}
           </Typography>
         </Box>
         <Box
@@ -96,7 +96,39 @@ function CardItem({ card }) {
               fontSize: "0.8rem",
             }}
           >
-            {card.stockstatus}
+            {card.color}
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: 1,
+          }}
+        >
+          <Typography
+            variant="body2"
+            sx={{
+              color: "black",
+              fontSize: "0.8rem",
+            }}
+          >
+            {" "}
+            {new Date(card.updatedAt).toLocaleDateString("en-GB", {
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            })}
+          </Typography>
+          <Typography
+            variant="body2"
+            sx={{
+              color: "black",
+              fontSize: "0.8rem",
+            }}
+          >
+            {card.prizerange} & {card.discount}%
           </Typography>
         </Box>
         <CardActions className={classes.cardActions}>
@@ -109,7 +141,7 @@ function CardItem({ card }) {
             }}
           >
             <Button size="small">{card.button}</Button>
-            
+
             <Typography
               variant="body2"
               sx={{
@@ -117,7 +149,7 @@ function CardItem({ card }) {
                 fontSize: "0.8rem",
               }}
             >
-              {card.discount}
+              {card.stockstatus}
             </Typography>
           </Box>
         </CardActions>
@@ -131,32 +163,31 @@ function ProductCard({ productDetail }) {
 
   return (
     <Box>
-
-      <Container sx={{ padding: 0 ,marginBottom:10}}>
-          <Box
-            sx={{
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "flex-start",
-              gap: 2,
-            }}
-          >
-            {productDetail.map((card) => (
-              <Box
-                key={card._id}
-                sx={{
-                  flexBasis: {
-                    xs: "100%",
-                    sm: "48%",
-                    md: "30%",
-                  },
-                  boxSizing: "border-box",
-                }}
-              >
-                <CardItem card={card} />
-              </Box>
-            ))}
-          </Box>
+      <Container sx={{ padding: 0, marginBottom: 10 }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "flex-start",
+            gap: 2,
+          }}
+        >
+          {productDetail.map((card) => (
+            <Box
+              key={card._id}
+              sx={{
+                flexBasis: {
+                  xs: "100%",
+                  sm: "48%",
+                  md: "30%",
+                },
+                boxSizing: "border-box",
+              }}
+            >
+              <CardItem card={card} />
+            </Box>
+          ))}
+        </Box>
       </Container>
     </Box>
   );

@@ -50,7 +50,7 @@ const shopnearme = ({ searchParams }) => {
     <>
       {/* Show loading indicator when fetching data */}
       {isFetching && (
-        <Box sx={{ width: "100%", marginBottom: 12 }}>
+        <Box sx={{ width: "100%", marginTop: 8 }}>
           <LinearProgress />
         </Box>
       )}

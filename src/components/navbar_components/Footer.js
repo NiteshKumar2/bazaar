@@ -15,7 +15,6 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import Image from "next/image";
 
-
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" mt={1}>
@@ -36,7 +35,8 @@ export default function Footer() {
         flexDirection: "column",
         alignItems: "center",
         gap: { xs: 4, sm: 8 },
-        py: { xs: 8, sm: 10 },
+        pt: { xs: 8, sm: 12 },
+        pb: { xs: 2, sm: 3 },
         textAlign: { sm: "center", md: "left" },
       }}
     >
@@ -50,7 +50,7 @@ export default function Footer() {
         }}
       >
         <Box sx={{ flex: 1, minWidth: 0 }}>
-          <Box sx={{ ml: "-15px" }}>
+          <Box sx={{ ml: { xs: 12, sm: 0 } }}>
             <Image
               src="/logo.png"
               alt="BazarNear Logo"
@@ -58,13 +58,16 @@ export default function Footer() {
               height={50}
             />
           </Box>
-          <Typography variant="body2" fontWeight={600} gutterBottom>
-            Newsletter
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            mt={1}
+            sx={{ maxWidth: { sm: 230 } }}
+          >
+            Bringing the market to your fingertips. Shop smart, shop easy, and
+            discover a world of choices, all in one place!
           </Typography>
-          <Typography variant="body2" color="text.secondary" mb={2}>
-            Subscribe to our newsletter for weekly updates and promotions.
-          </Typography>
-          <Stack direction="row" spacing={1} useFlexGap>
+          {/* <Stack direction="row" spacing={1} useFlexGap>
             <TextField
               id="newsletter-email"
               size="small"
@@ -83,87 +86,75 @@ export default function Footer() {
             >
               Subscribe
             </Button>
-          </Stack>
+          </Stack> */}
         </Box>
-        <Box sx={{display:{ xs: "flex", sm: 'contents', md: 'contents' } }}>
-        <Box sx={{ flex: 1, minWidth: 0 }}>
-          <Typography variant="body2" fontWeight={600} mb={1}>
-            Product
-          </Typography>
-          <Stack spacing={0.5}>
-            <Link color="text.secondary" href="#">
-              Features
-            </Link>
-            <Link color="text.secondary" href="#">
-              Testimonials
-            </Link>
-            <Link color="text.secondary" href="#">
-              Highlights
-            </Link>
-            <Link color="text.secondary" href="#">
-              Pricing
-            </Link>
-            <Link color="text.secondary" href="#">
-              FAQs
-            </Link>
-          </Stack>
-        </Box>
+        <Box sx={{ display: { xs: "flex", sm: "contents", md: "contents" } }}>
+          <Box sx={{ flex: 1, minWidth: 0 }}>
+            <Typography variant="body2" fontWeight={600} mb={1}>
+              Product
+            </Typography>
+            <Stack spacing={0.5}>
+              <Link color="text.secondary" href="#">
+                Features
+              </Link>
+              <Link color="text.secondary" href="#">
+                Testimonials
+              </Link>
+              <Link color="text.secondary" href="#">
+                Highlights
+              </Link>
+              <Link color="text.secondary" href="#">
+                FAQs
+              </Link>
+            </Stack>
+          </Box>
 
-        <Box sx={{ flex: 1, minWidth: 0 }}>
-          <Typography variant="body2" fontWeight={600} mb={1}>
-            Company
-          </Typography>
-          <Stack spacing={0.5}>
-            <Link color="text.secondary" href="#">
-              About us
-            </Link>
-            <Link color="text.secondary" href="#">
-              Careers
-            </Link>
-            <Link color="text.secondary" href="#">
-              Press
-            </Link>
-          </Stack>
-        </Box>
+          <Box sx={{ flex: 1, minWidth: 0 }}>
+            <Typography variant="body2" fontWeight={600} mb={1}>
+              Company
+            </Typography>
+            <Stack spacing={0.5}>
+              <Link color="text.secondary" href="#">
+                About us
+              </Link>
+              <Link color="text.secondary" href="#">
+                Careers
+              </Link>
+              <Link color="text.secondary" href="#">
+                Press
+              </Link>
+            </Stack>
+          </Box>
 
-        <Box sx={{ flex: 1, minWidth: 0 }}>
-          <Typography variant="body2" fontWeight={600} mb={1}>
-            Legal
-          </Typography>
-          <Stack spacing={0.5}>
-            <Link color="text.secondary" href="#">
-              Terms
-            </Link>
-            <Link color="text.secondary" href="#">
-              Privacy
-            </Link>
-            <Link color="text.secondary" href="#">
-              Contact
-            </Link>
-          </Stack>
+          <Box sx={{ flex: 1, minWidth: 0 }}>
+            <Typography variant="body2" fontWeight={600} mb={1}>
+              Legal
+            </Typography>
+            <Stack spacing={0.5}>
+              <Link color="text.secondary" href="#">
+                Terms
+              </Link>
+              <Link color="text.secondary" href="#">
+                Privacy
+              </Link>
+              <Link color="text.secondary" href="#">
+                Contact
+              </Link>
+            </Stack>
+          </Box>
         </Box>
-      </Box>
       </Box>
       <Box
         sx={{
           display: "flex",
           justifyContent: "space-between",
-          pt: { xs: 4, sm: 8 },
+          pt: { xs: 1, sm: 2 },
           width: "100%",
           borderTop: "1px solid",
           borderColor: "divider",
         }}
       >
         <div>
-          <Link color="text.secondary" href="#">
-            Privacy Policy
-          </Link>
-          <Typography display="inline" sx={{ mx: 0.5, opacity: 0.5 }}>
-            &nbsp;•&nbsp;
-          </Typography>
-          <Link color="text.secondary" href="#">
-            Terms of Service
-          </Link>
           <Copyright />
         </div>
         <Stack

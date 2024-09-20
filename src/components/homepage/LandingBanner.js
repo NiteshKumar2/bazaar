@@ -20,7 +20,12 @@ function LandingBanner() {
         margin: 0,
         padding: 0,
         borderRadius: 0,
-        height: 570, // Medium height
+        height: {
+          xs: 480,
+          sm: 570,
+          md: 690,
+          lg: 690,
+        } // Medium height
       }}
     >
       {<img style={{ display: "none" }} src={"/shopping1.png"} alt={"image"} />}

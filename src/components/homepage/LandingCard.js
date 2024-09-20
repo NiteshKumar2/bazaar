@@ -12,7 +12,7 @@ import {
 
 export default function LandingCard() {
   return (
-    <Container sx={{ marginY:12 }}>
+    <Container sx={{ marginY:18 }}>
       <Stack
         spacing={4}
         direction={{ xs: "column", sm: "row" }} // Stack items in column on small screens, row on larger screens
@@ -24,8 +24,8 @@ export default function LandingCard() {
             <CardActionArea>
               <CardMedia
                 component="img"
-                height="140"
-                image="shopping1.png"
+                height="220"
+                image="female.png"
                 alt="Order Online"
                 style={{ borderRadius: "5px" }}
               />
@@ -50,8 +50,8 @@ export default function LandingCard() {
           <CardActionArea>
             <CardMedia
               component="img"
-              height="140"
-              image="shopping1.png"
+              height="220"
+              image="male.png"
               alt="Shop Review"
               style={{ borderRadius: "5px" }}
             />
@@ -76,8 +76,8 @@ export default function LandingCard() {
           <CardActionArea>
             <CardMedia
               component="img"
-              height="140"
-              image="shopping1.png"
+              height="220"
+              image="kids.png"
               alt="Night Shopping"
               style={{ borderRadius: "5px" }}
             />
@@ -88,7 +88,7 @@ export default function LandingCard() {
                 component="div"
                 color="primary"
               >
-                Child
+                Kids
               </Typography>
               <Typography variant="body2" color="text.secondary">
               Party Dress || Tutu Dress || Summer Dress

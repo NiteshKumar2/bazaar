@@ -54,7 +54,7 @@ export default function Footer() {
             <Image
               src="/logo.png"
               alt="BazarNear Logo"
-              width={50}
+              width={130}
               height={50}
             />
           </Box>

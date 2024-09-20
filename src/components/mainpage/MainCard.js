@@ -11,7 +11,7 @@ import {
   Container,
   Link,
   Rating,
-  Skeleton,
+  Skeleton
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 
@@ -41,17 +41,14 @@ const useStyles = makeStyles({
 
 function CardItem({ card, isLoading }) {
   const classes = useStyles();
-
+  
   return (
     <Card className={classes.card}>
       {/* Conditionally render skeletons while loading */}
       {isLoading ? (
         <Skeleton variant="rectangular" height={190} />
       ) : (
-        <Link
-          href={`/shopnearme/shop?email=${card.email}`}
-          style={{ textDecoration: "none" }}
-        >
+        <Link href={`/shopnearme/shop?email=${card.email}`} style={{ textDecoration: "none" }}>
           <CardMedia
             component="img"
             alt={card.name}
@@ -83,13 +80,7 @@ function CardItem({ card, isLoading }) {
           {isLoading ? (
             <Skeleton width={30} height={20} />
           ) : (
-            <Rating
-              name="read-only"
-              value={card.rating}
-              precision={0.1}
-              readOnly
-              size="small"
-            />
+            <Rating name="read-only" value={card.rating} precision={0.1} readOnly size="small" />
           )}
         </Box>
 
@@ -139,11 +130,7 @@ function CardItem({ card, isLoading }) {
               width: "100%",
             }}
           >
-            {isLoading ? (
-              <Skeleton width={50} height={20} />
-            ) : (
-              <Button size="small">{card.button}</Button>
-            )}
+            {isLoading ? <Skeleton width={50} height={20} /> : <Button size="small">{card.button}</Button>}
             {isLoading ? (
               <Skeleton width="30%" />
             ) : (
@@ -184,24 +171,22 @@ function MainCard({ userDetail, isFetching }) {
             gap: 2,
           }}
         >
-          {(isFetching ? Array.from(new Array(6)) : userDetail).map(
-            (card, index) => (
-              <Box
-                key={index}
-                sx={{
-                  flexBasis: {
-                    xs: "100%",
-                    sm: "48%",
-                    md: "30%",
-                  },
-                  boxSizing: "border-box",
-                }}
-              >
-                {/* Pass isLoading prop to CardItem to show skeleton */}
-                <CardItem card={card || {}} isLoading={isFetching} />
-              </Box>
-            )
-          )}
+          {(isFetching ? Array.from(new Array(6)) : userDetail).map((card, index) => (
+            <Box
+              key={index}
+              sx={{
+                flexBasis: {
+                  xs: "100%",
+                  sm: "48%",
+                  md: "30%",
+                },
+                boxSizing: "border-box",
+              }}
+            >
+              {/* Pass isLoading prop to CardItem to show skeleton */}
+              <CardItem card={card || {}} isLoading={isFetching} />
+            </Box>
+          ))}
         </Box>
       </Container>
     </Box>

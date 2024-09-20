@@ -43,8 +43,8 @@ const CarouselSection = () => {
           variant="h5"
           sx={{ // Margin below heading
             textAlign: "Left",
-            marginLeft: { xs: 3, sm: 50, md: 50 },
-            marginTop: { xs: 3, sm: 7, md: 7 } // Centered heading
+            marginLeft: { xs: 3, sm: 45, md: 45 },
+            marginTop: { xs: 2, sm: 2, md:  2} // Centered heading
           }}
         >
           Top Queries

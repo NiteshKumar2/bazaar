@@ -11,7 +11,6 @@ export default async function Home() {
   return (
     <>
       <LandingBanner />
-      <p>{JSON.stringify(session.user.email)}</p>
       <LandingCard />
       <LandingLocation />
       <LandingTypeshow/>

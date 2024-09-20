@@ -66,7 +66,7 @@ export default function LocationSearchComponent() {
                 gap: 0.1,
                 p: 0,
                 flexWrap: "wrap",
-                mr: { xs: 1, sm: 10, md: 10 },
+                mr: { xs: -0.5, sm: 10, md: 10 },
             }}
         >
             <Box component="form" onSubmit={handleSearch} sx={{ flexGrow: 2 }}>

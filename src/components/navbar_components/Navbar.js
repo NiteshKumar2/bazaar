@@ -80,7 +80,7 @@ export default function Navbar() {
               flexWrap: "wrap",
               display: "flex",
               py: 1,
-              my: -6,
+              
             }}
           >
             {/* Left: Logo */}
@@ -90,12 +90,11 @@ export default function Navbar() {
                   <CardMedia
                     component="img"
                     sx={{
-                      width: { xs: 120, sm: 150 },
+                      width: { xs: 90, sm: 110 },
                       cursor: "pointer",
                       height: "auto",
-                      marginLeft: -8,
-                      marginRight: -4,
-                      marginTop: 2,
+                      marginLeft: -3,
+                      marginRight: 0.2,
                     }}
                     src="/logo.png"
                     alt="Logo"
@@ -117,15 +116,15 @@ export default function Navbar() {
                   {session ? (
                     <>
                       <Link href={"/createshop"}>
-                        <Typography style={{ marginTop: 9 }}>
-                          Add Shop/Product
+                        <Typography style={{ marginTop: 9,color:"rgb(91 96 96)" }}>
+                          Add Shopes
                         </Typography>
                       </Link>
                       <Button
                         variant="outlined"
-                        color="primary"
+                        color="rgb(254 149 144)"
                         onClick={() => signOut()}
-                        sx={{ minWidth: "100px" }}
+                        sx={{ minWidth: "100px", color:"rgb(254 149 144)" }}
                       >
                         Log out
                       </Button>
@@ -134,17 +133,17 @@ export default function Navbar() {
                     <>
                       <Button
                         variant="outlined"
-                        color="primary"
+                        color="rgb(254 149 144)"
                         onClick={handleOpenLoginPopup}
-                        sx={{ minWidth: "100px" }}
+                        sx={{ minWidth: "100px",color:"rgb(254 149 144)" }}
                       >
                         Log in
                       </Button>
                       <Button
                         variant="outlined"
-                        color="primary"
+                        color="rgb(254 149 144)"
                         onClick={handleOpenSignupPopup}
-                        sx={{ minWidth: "100px" }}
+                        sx={{ minWidth: "100px",color:"rgb(254 149 144)" }}
                       >
                         Sign up
                       </Button>
@@ -157,6 +156,7 @@ export default function Navbar() {
               <Box
                 sx={{
                   display: { xs: "flex", sm: "none", md: "none" },
+                  marginRight:-3.8,
                   alignItems: "center",
                 }}
               >
@@ -190,7 +190,7 @@ export default function Navbar() {
                       <MenuItem key="shop">
                         <Link href="/createshop">
                           <Typography style={{ marginTop: 9, textAlign: "center" }}>
-                            Product
+                          Add Shopes
                           </Typography>
                         </Link>
                       </MenuItem>,

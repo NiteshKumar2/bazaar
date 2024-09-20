@@ -98,8 +98,8 @@ function FilterSection({ location }) {
     <Box sx={{ display: "flex", flexDirection: "column", mt: "-1px", ml: 5 }}>
       <Box
         sx={{
-          marginTop: { xs: 10, md: 15, lg: 15 },
-          marginLeft: { xs: -2, md: 47, lg: 47 },
+          marginTop: { xs: 10, md: 13, lg: 13 },
+          marginLeft: { xs: -2, md: 40, lg: 40 },
           width: { xs: "100%", md: "66.66%", lg: "50%" }, // Responsive width
         }}
       >

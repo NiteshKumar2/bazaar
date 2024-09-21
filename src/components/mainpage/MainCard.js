@@ -49,7 +49,7 @@ function CardItem({ card, isLoading }) {
         <Skeleton variant="rectangular" height={190} />
       ) : (
         <Link
-          href={`/shopnearme/shop?email=${card.email}`}
+          href={`/shopnearme/${card.email}`}
           style={{ textDecoration: "none" }}
         >
           <CardMedia
@@ -181,7 +181,7 @@ function MainCard({ userDetail, isFetching }) {
         </Typography>
       </Box>
 
-      <Container sx={{ padding: 0 }}>
+      <Container sx={{ padding: 1 }}>
         <Box
           sx={{
             display: "flex",

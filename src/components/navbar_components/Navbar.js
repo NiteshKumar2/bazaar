@@ -22,6 +22,8 @@ import { signOut, useSession } from "next-auth/react";
 import LocationSearchComponent from "./LocationSearchComponent";
 import LoginPopup from "./LoginPopup";
 import SignupPopup from "./SignupPopup";
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import StoreIcon from '@mui/icons-material/Store';
 
 const theme = createTheme({
   palette: {
@@ -116,15 +118,15 @@ export default function Navbar() {
                   {session ? (
                     <>
                       <Link href={"/createshop"}>
-                        <Typography style={{ marginTop: 9,color:"rgb(91 96 96)" }}>
-                          Add Shopes
+                        <Typography style={{ marginTop: 9,color:"#fd3031" }}>
+                        <PersonAddIcon/><StoreIcon />
                         </Typography>
                       </Link>
                       <Button
-                        variant="outlined"
+                        variant="text"
                         color="rgb(254 149 144)"
                         onClick={() => signOut()}
-                        sx={{ minWidth: "100px", color:"rgb(254 149 144)" }}
+                        sx={{ minWidth: "100px", color:"#fd3031" }}
                       >
                         Log out
                       </Button>
@@ -132,18 +134,18 @@ export default function Navbar() {
                   ) : (
                     <>
                       <Button
-                        variant="outlined"
+                        variant="text"
                         color="rgb(254 149 144)"
                         onClick={handleOpenLoginPopup}
-                        sx={{ minWidth: "100px",color:"rgb(254 149 144)" }}
+                        sx={{ minWidth: "100px",color:"#fd3031" }}
                       >
                         Log in
                       </Button>
                       <Button
-                        variant="outlined"
+                        variant="text"
                         color="rgb(254 149 144)"
                         onClick={handleOpenSignupPopup}
-                        sx={{ minWidth: "100px",color:"rgb(254 149 144)" }}
+                        sx={{ minWidth: "100px",color:"#fd3031" }}
                       >
                         Sign up
                       </Button>
@@ -158,6 +160,7 @@ export default function Navbar() {
                   display: { xs: "flex", sm: "none", md: "none" },
                   marginRight:-3.8,
                   alignItems: "center",
+                  
                 }}
               >
                 <IconButton
@@ -189,20 +192,20 @@ export default function Navbar() {
                     ? [
                       <MenuItem key="shop">
                         <Link href="/createshop">
-                          <Typography style={{ marginTop: 9, textAlign: "center" }}>
-                          Add Shopes
+                          <Typography style={{ marginTop: 9, textAlign: "center",color:"#fd3031" }}>
+                          <PersonAddIcon/><StoreIcon />
                           </Typography>
                         </Link>
                       </MenuItem>,
-                      <MenuItem key="logout" onClick={() => signOut()}>
+                      <MenuItem key="logout"   sx={{color:"#fd3031" }} onClick={() => signOut()}>
                         Log out
                       </MenuItem>,
                     ]
                     : [
-                      <MenuItem key="login" onClick={handleOpenLoginPopup}>
+                      <MenuItem key="login"  sx={{color:"#fd3031" }} onClick={handleOpenLoginPopup}>
                         Log in
                       </MenuItem>,
-                      <MenuItem key="signup" onClick={handleOpenSignupPopup}>
+                      <MenuItem key="signup"  sx={{color:"#fd3031" }} onClick={handleOpenSignupPopup}>
                         Sign up
                       </MenuItem>,
                     ]}

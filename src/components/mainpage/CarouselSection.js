@@ -24,11 +24,36 @@ const items = [
     img: "latest.jpg",
     link: `/shopnearme?query=latest`,
   },
-  { id: 3, title: "Winter clothing trends", img: "male.png", link: "#" },
-  { id: 4, title: "Bridal lehenga", img: "latest.jpg", link: "bridal" },
-  { id: 5, title: "Luxury clothing", img: "female.png", link: "luxuary" },
-  { id: 6, title: "Cheap casual wear", img: "best.jpg", link: "cheap" },
-  { id: 7, title: "Best sportswear", img: "kids.png", link: "sport" },
+  {
+    id: 3,
+    title: "Winter clothing trends",
+    img: "male.png",
+    link: `/shopnearme?query=winter`,
+  },
+  {
+    id: 4,
+    title: "Bridal lehenga",
+    img: "latest.jpg",
+    link: `/shopnearme?query=bridal`,
+  },
+  {
+    id: 5,
+    title: "Luxury clothing",
+    img: "female.png",
+    link: `/shopnearme?query=luxury`,
+  },
+  {
+    id: 6,
+    title: "Cheap casual wear",
+    img: "best.jpg",
+    link: `/shopnearme?query=cheap`,
+  },
+  {
+    id: 7,
+    title: "Best sportswear",
+    img: "kids.png",
+    link: `/shopnearme?query=sport`,
+  },
 ];
 
 const CarouselSection = () => {

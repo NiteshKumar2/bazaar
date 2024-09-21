@@ -7,11 +7,11 @@ import { toast } from "react-hot-toast"; // Importing toast for notifications
 import Box from "@mui/material/Box";
 import LinearProgress from "@mui/material/LinearProgress"; // Importing LinearProgress for progress bar
 
-export default function Page({ searchParams }) {
+export default function Page(e) {
   const [userDetail, setUserDetail] = useState([]);
   const [productDetail, setProductDetail] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
-  const email = searchParams.email;
+  const email = e.params.shop;
 
   useEffect(() => {
     const fetchUserDetails = async () => {

@@ -17,6 +17,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 function Product() {
   const router = useRouter();
@@ -60,7 +61,7 @@ function Product() {
     } catch (error) {
       toast.error(
         error.response?.data?.error ||
-        "An error occurred while fetching products."
+          "An error occurred while fetching products."
       );
     } finally {
       setIsFetching(false);
@@ -80,7 +81,7 @@ function Product() {
     } catch (error) {
       toast.error(
         error.response?.data?.error ||
-        "An error occurred while creating the product."
+          "An error occurred while creating the product."
       );
     }
   };
@@ -102,7 +103,7 @@ function Product() {
     } catch (error) {
       toast.error(
         error.response?.data?.error ||
-        "An error occurred while updating the product."
+          "An error occurred while updating the product."
       );
     }
   };
@@ -117,7 +118,7 @@ function Product() {
     } catch (error) {
       toast.error(
         error.response?.data?.error ||
-        "An error occurred while deleting the product."
+          "An error occurred while deleting the product."
       );
     }
   };
@@ -283,10 +284,16 @@ function Product() {
                         onChange={(e) => handleImageChange(e)} // Handle file change for image upload
                       />
                       {formData.image && (
-                        <img
-                          src={formData.image}
+                        <Image
+                          src={formData.image} // Make sure the image path is valid and accessible
                           alt="Selected"
-                          style={{ width: 100, height: 100, marginTop: 10 }}
+                          width={100}
+                          height={100}
+                          style={{ marginTop: 10 }} // You can keep custom styles like margin
+                          objectFit="cover" // Ensure the image fills the space without distortion
+                          placeholder="blur" // Optional: Add a blur-up placeholder while the image loads
+                          blurDataURL="/path/to/low-res-placeholder.jpg" // Optional: Low-res placeholder for the blur effect
+                          priority={true} // Optional: Use for images that are important for initial load
                         />
                       )}
                     </Box>
@@ -423,10 +430,16 @@ function Product() {
                           onChange={(e) => handleUpdateImageChange(e, index)} // Handle file change for image update
                         />
                         {product.image && (
-                          <img
-                            src={product.image}
+                          <Image
+                            src={product.image} // Make sure the image path is valid and accessible
                             alt="Selected"
-                            style={{ width: 100, height: 100, marginTop: 10 }}
+                            width={100}
+                            height={100}
+                            style={{ marginTop: 10 }} // You can keep custom styles like margin
+                            objectFit="cover" // Ensure the image fills the space without distortion
+                            placeholder="blur" // Optional: Add a blur-up placeholder while the image loads
+                            blurDataURL="/path/to/low-res-placeholder.jpg" // Optional: Low-res placeholder for the blur effect
+                            priority={true} // Optional: Use for images that are important for initial load
                           />
                         )}
                       </Box>

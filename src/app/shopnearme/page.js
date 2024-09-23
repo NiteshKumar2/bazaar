@@ -9,7 +9,7 @@ import CarouselSection from "@/components/mainpage/CarouselSection";
 import Box from "@mui/material/Box";
 import LinearProgress from "@mui/material/LinearProgress"; // Importing LinearProgress for loading indicator
 
-const shopnearme = ({ searchParams }) => {
+const ShopNearMe = ({ searchParams }) => {
   const [userDetail, setUserDetail] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
   const { location, gender, query } = searchParams;
@@ -63,4 +63,4 @@ const shopnearme = ({ searchParams }) => {
   );
 };
 
-export default shopnearme;
+export default ShopNearMe;

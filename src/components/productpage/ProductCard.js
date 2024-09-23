@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close"; // Importing Close Icon for the close button
 import { makeStyles } from "@mui/styles";
+import Image from "next/image";
 
 const useStyles = makeStyles({
   card: {
@@ -201,7 +202,17 @@ function CardItem({ card }) {
           </IconButton>
 
           {/* Display the large image */}
-          <img src={card.image} alt="Product" className={classes.modalImage} />
+          <Image
+            src={card.image} // Ensure the image URL is valid
+            alt="Product"
+            width={500} // Provide appropriate width
+            height={500} // Provide appropriate height
+            className={classes.modalImage} // Maintain class-based styling
+            objectFit="cover" // Ensures the image covers the area without distortion (optional)
+            placeholder="blur" // Optional: Blur effect while the image is loading
+            blurDataURL="/path/to/low-res-placeholder.jpg" // Optional: Low-res placeholder image for blur effect
+            priority={true} // Optional: Prioritize if the image is important for initial page load
+          />
         </Box>
       </Modal>
     </>

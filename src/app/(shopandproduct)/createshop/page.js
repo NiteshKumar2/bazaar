@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   Box,
   Typography,
@@ -23,6 +23,7 @@ import { getSession } from "next-auth/react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const RenderTextField = ({
   label,
@@ -46,34 +47,38 @@ const RenderTextField = ({
   </Box>
 );
 
-const RenderSection = (
-  ({ title, sectionKey, isOpen, toggleSection, children }) => (
+const RenderSection = ({
+  title,
+  sectionKey,
+  isOpen,
+  toggleSection,
+  children,
+}) => (
+  <Box
+    sx={{
+      mb: 4,
+      p: 2,
+      border: "1px dashed grey",
+      width: { xs: 250, sm: 300, md: 500 },
+    }}
+  >
     <Box
       sx={{
-        mb: 4,
-        p: 2,
-        border: "1px dashed grey",
-        width: { xs: 250, sm: 300, md: 500 },
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
       }}
     >
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <Typography variant="h6">{title}</Typography>
-        <IconButton onClick={() => toggleSection(sectionKey)}>
-          {isOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-        </IconButton>
-      </Box>
-      <Collapse in={isOpen}>
-        <Divider sx={{ my: 2 }} />
-        {children}
-      </Collapse>
+      <Typography variant="h6">{title}</Typography>
+      <IconButton onClick={() => toggleSection(sectionKey)}>
+        {isOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+      </IconButton>
     </Box>
-  )
+    <Collapse in={isOpen}>
+      <Divider sx={{ my: 2 }} />
+      {children}
+    </Collapse>
+  </Box>
 );
 
 function CreateShop() {
@@ -98,31 +103,35 @@ function CreateShop() {
 
   const [openSections, setOpenSections] = useState({ details: false });
 
-  const fetchUserDetails = async (email) => {
-    try {
-      await axios.get(`/api/userdetails?email=${email}`);
-      router.push("/updateshop");
-    } catch (error) {
-      console.error("Error fetching user details:", error.message);
-      toast.error("Failed to fetch user details.");
-    } finally {
-      setIsFetching(false);
-    }
-  };
+  const fetchUserDetails = useCallback(
+    async (email) => {
+      try {
+        await axios.get(`/api/userdetails?email=${email}`);
+        router.push("/updateshop");
+      } catch (error) {
+        console.error("Error fetching user details:", error.message);
+        toast.error("Failed to fetch user details.");
+      } finally {
+        setIsFetching(false);
+      }
+    },
+    [router]
+  );
 
   useEffect(() => {
     const fetchSessionAndUserDetails = async () => {
       const session = await getSession();
       if (session?.user) {
         setShopDetails((prev) => ({ ...prev, email: session.user.email }));
-        fetchUserDetails(session.user.email);
+        await fetchUserDetails(session.user.email);
       } else {
         toast.error("User not authenticated.");
         router.push("/login");
       }
     };
+
     fetchSessionAndUserDetails();
-  }, [router]);
+  }, [fetchUserDetails, router]);
 
   const toggleSection = (section) => {
     setOpenSections((prev) => ({ ...prev, [section]: !prev[section] }));
@@ -362,16 +371,19 @@ function CreateShop() {
                 onChange={handleImageChange}
               />
               {shopDetails.image && (
-                <img
-                  src={shopDetails.image}
+                <Image
+                  src={shopDetails.image} // Ensure this URL is valid and accessible
                   alt="Uploaded preview"
+                  width={100}
+                  height={100}
                   style={{
-                    width: 100,
-                    height: 100,
                     objectFit: "cover",
                     borderRadius: "8px",
                     marginTop: 10,
                   }}
+                  placeholder="blur" // Optional: shows a low-res blurred image while loading
+                  blurDataURL="/path/to/low-res-placeholder.jpg" // Optional: low-res image for the blur effect
+                  priority={true} // Optional: ensures this image loads quickly
                 />
               )}
               <Box

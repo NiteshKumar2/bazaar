@@ -24,6 +24,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import Link from "@mui/material/Link";
+import Image from "next/image";
 
 const ToggleableSection = ({ title, open, toggle, children }) => (
   <Box
@@ -355,16 +356,19 @@ export default function UpdateShop() {
                 onChange={handleImageChange}
               />
               {userDetail.image && (
-                <img
-                  src={userDetail.image}
+                <Image
+                  src={userDetail.image} // Ensure the image URL is valid
                   alt="Uploaded preview"
+                  width={100}
+                  height={100}
                   style={{
-                    width: 100,
-                    height: 100,
-                    objectFit: "cover",
                     borderRadius: "8px",
                     marginTop: 10,
                   }}
+                  objectFit="cover" // Ensures the image covers the area without distortion
+                  placeholder="blur" // Optional: Adds a blur effect while loading
+                  blurDataURL="/path/to/low-res-placeholder.jpg" // Optional: A low-resolution image for the blur effect
+                  priority={true} // Optional: Prioritize if the image is important for loading
                 />
               )}
 

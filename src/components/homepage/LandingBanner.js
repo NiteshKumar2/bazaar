@@ -13,6 +13,7 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 function LandingBanner() {
   const router = useRouter();
@@ -51,7 +52,15 @@ function LandingBanner() {
         }, // Medium height
       }}
     >
-      {<img style={{ display: "none" }} src={"/shopping1.png"} alt={"image"} />}
+      {
+        <Image
+          src="/shopping1.png" // Ensure the image path is correct
+          alt="image"
+          width={100} // You need to specify a width (change as needed)
+          height={100} // Specify a height (change as needed)
+          style={{ display: "none" }} // Maintain the display: "none" style
+        />
+      }
       <Box
         sx={{
           position: "absolute",

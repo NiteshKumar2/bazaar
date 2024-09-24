@@ -43,33 +43,6 @@ export const authOptions = {
             clientId: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         }),
-    ],
-    callbacks: {
-        async signIn({ user, account, profile, email, credentials }) {
-            try {
-                // Check if the login is through Google
-                if (account.provider === "google") {
-                    const userExist = await User.findOne({ email: profile.email });
-                    if (!userExist) {
-                        const password = Math.floor(1000 + Math.random() * 9000);
-                        const updatepassword = password.toString();
-                        const salt = await bcryptjs.genSalt(10);
-                        const hashedPassword = await bcryptjs.hash(updatepassword, salt);
-                        
-                        const newUser = await User.create({
-                            username: profile.name,
-                            email: profile.email,
-                            password: hashedPassword,
-                            isVerfied: true,
-                        });
-                    }
-                }
-                return true;
-            } catch (error) {
-                console.log(error);
-                return false;
-            }
-        },
-    },
+    ]
     
 };

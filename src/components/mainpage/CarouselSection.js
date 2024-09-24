@@ -21,19 +21,19 @@ const items = [
   {
     id: 2,
     title: "Latest fashion trends",
-    img: "latest.jpg",
+    img: "latest.jpeg",
     link: `/shopnearme?query=latest`,
   },
   {
     id: 3,
     title: "Winter clothing trends",
-    img: "male.png",
+    img: "winter.jpeg",
     link: `/shopnearme?query=winter`,
   },
   {
     id: 4,
     title: "Bridal lehenga",
-    img: "latest.jpg",
+    img: "bridal.jpg",
     link: `/shopnearme?query=bridal`,
   },
   {

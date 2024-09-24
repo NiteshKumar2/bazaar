@@ -10,7 +10,7 @@ export const metadata = {
   title: "Bigbazar",
   description: "Bigbazar",
   icons: {
-    icon: "/logo.png", // Add favicon using the Metadata API
+    icon: "/logo1.png", // Add favicon using the Metadata API
   },
 };
 

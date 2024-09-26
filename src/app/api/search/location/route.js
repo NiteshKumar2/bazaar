@@ -28,7 +28,7 @@ export async function GET(request) {
             );
         }
 
-        return NextResponse.json(
+        const response = NextResponse.json(
             {
                 message: `User details found for city: ${city}`,
                 success: true,
@@ -36,6 +36,9 @@ export async function GET(request) {
             },
             { status: 200 }
         );
+        // Set Cache-Control headers to prevent caching
+        response.headers.set('Cache-Control', 'no-store, max-age=0');
+        return response;
     } catch (error) {
         console.error("Error fetching user details:", error);
         return NextResponse.json(
